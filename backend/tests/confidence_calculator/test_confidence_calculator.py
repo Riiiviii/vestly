@@ -10,7 +10,7 @@ from utils.confidence_calculator import (
     PRICE_HISTORY_DEDUCTION,
     MISSING_FINANCIALS_DEDUCTION,
 )
-from utils.types import CompanyInformation, MCPData
+from schemas.mcp_data import CompanyInformation, MCPData
 
 # ── Company Confidence Score Testing ────────────────────────────────────────
 

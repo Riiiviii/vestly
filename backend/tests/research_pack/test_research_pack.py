@@ -1,4 +1,4 @@
-from utils.types import CompanySnapshot
+from schemas.research_pack import CompanySnapshot
 
 from utils.research_pack import (
     build_research_pack,
