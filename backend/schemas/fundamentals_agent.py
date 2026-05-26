@@ -11,7 +11,7 @@ class ValuationSignals(BaseModel):
     profit_margins: float | None = None
     earnings_growth: float | None = None
     revenue_growth: float | None = None
-    market_cap: int | None = None
+    market_cap: float | None = None
 
 
 class AnalystConsensus(BaseModel):

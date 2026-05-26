@@ -11,5 +11,5 @@ class SentimentOutput(BaseModel):
 
     general_sentiment: Literal["positive", "neutral", "negative", "mixed"]
     summary: str = Field(min_length=1)
-    notable_events: list[News]
+    notable_events: list[News] = Field(max_length=5)
     strength: int = Field(ge=0, le=100)

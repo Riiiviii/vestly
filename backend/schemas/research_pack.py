@@ -1,4 +1,4 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 from schemas.primitives import MODEL_CONFIG
 from schemas.mcp_data import AnalystRecommendation, FinancialYearData, Issue, News
@@ -53,5 +53,5 @@ class ResearchPack(BaseModel):
     price_movement: PriceMovement
     recent_news: list[News]
     analyst_recommendations: list[AnalystRecommendation]
-    data_confidence: int
+    data_confidence: int = Field(ge=0, le=100)
     flags: list[Issue]
