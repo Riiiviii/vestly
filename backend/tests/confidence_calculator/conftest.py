@@ -2,7 +2,7 @@ import pytest
 from pathlib import Path
 from datetime import datetime, timezone
 
-from utils.types import CompanyInformation, News
+from schemas.mcp_data import CompanyInformation, News
 
 FIXTURES_DIR = Path(__file__).parent.parent / "_fixtures"
 

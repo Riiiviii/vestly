@@ -9,7 +9,7 @@ from dotenv import load_dotenv
 from datetime import datetime, timedelta
 import asyncio
 import pandas as pd
-from utils.types import AnalystRecommendation, CompanyInformation, MCPData, News
+from schemas.mcp_data import AnalystRecommendation, CompanyInformation, MCPData, News
 
 load_dotenv(override=True)
 FINNHUB_API_KEY = os.getenv("FINNHUB_API_KEY")

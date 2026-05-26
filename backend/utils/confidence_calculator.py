@@ -1,6 +1,6 @@
 from typing import Final
 from datetime import datetime, timedelta, timezone
-from .types import (
+from schemas.mcp_data import (
     CompanyInformation,
     ConfidenceScore,
     DeducedMCP,

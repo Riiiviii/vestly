@@ -1,6 +1,6 @@
 import pytest
 
-from utils.types import CompanyInformation, News
+from schemas.mcp_data import CompanyInformation, News
 
 # ── Research Pack Data Fixtures ────────────────────────────────────────
 

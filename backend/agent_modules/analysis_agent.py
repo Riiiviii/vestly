@@ -1,4 +1,4 @@
-from utils.types import ResearchPack
+from schemas.research_pack import ResearchPack
 from typing import Final
 from pathlib import Path
 from agents import Agent, Runner, trace

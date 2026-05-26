@@ -1,14 +1,16 @@
 from datetime import datetime, timedelta
 
-from .types import (
+from schemas.mcp_data import (
     CompanyInformation,
-    CompanySnapshot,
     DeducedMCP,
     Financials,
-    FinancialSnapshot,
     FinancialYearData,
     News,
     PriceHistory,
+)
+from schemas.research_pack import (
+    CompanySnapshot,
+    FinancialSnapshot,
     PriceMovement,
     ResearchPack,
 )

@@ -4,7 +4,7 @@ import re
 from pathlib import Path
 from datetime import datetime, timezone
 
-from utils.types import (
+from schemas.mcp_data import (
     CompanyInformation,
     FinancialYearData,
     MCPData,
