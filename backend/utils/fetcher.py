@@ -23,7 +23,7 @@ FINNHUB_API_KEY = os.getenv("FINNHUB_API_KEY")
 finnhub_client = finnhub.Client(api_key=FINNHUB_API_KEY)
 
 
-async def run_analysis(ticker: str):
+async def run_analysis(ticker: str) -> RawData:
     (
         raw_ticker_info,
         raw_ticker_news,
