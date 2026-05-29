@@ -1,17 +1,15 @@
 import json
-from typing import cast
 import yfinance as yf
 import finnhub
 import os
 import re
 from dotenv import load_dotenv
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 import pandas as pd
 from typing import cast
 
-from dotenv import load_dotenv
 import asyncio
-from backend.schemas.raw_data import (
+from schemas.raw_data import (
     AnalystRecommendation,
     CompanyInformation,
     RawData,
@@ -20,6 +18,8 @@ from backend.schemas.raw_data import (
 
 load_dotenv()
 FINNHUB_API_KEY = os.getenv("FINNHUB_API_KEY")
+if not FINNHUB_API_KEY:
+    raise RuntimeError("FINNHUB_API_KEY is not set")
 finnhub_client = finnhub.Client(api_key=FINNHUB_API_KEY)
 
 
@@ -82,7 +82,9 @@ def fetch_price_history(ticker: str):
 
     converted = {}
     for column, values in raw.items():
-        converted[column] = {k.isoformat(): v for k, v in values.items()}
+        converted[column] = {
+            k.isoformat(): (None if pd.isna(v) else v) for k, v in values.items()
+        }
     return converted
 
 
@@ -93,7 +95,7 @@ def fetch_records(ticker: str):
 
 
 def fetch_news(ticker: str):
-    today = datetime.today().strftime("%Y-%m-%d")
-    month_ago = (datetime.today() - timedelta(days=30)).strftime("%Y-%m-%d")
-    news = finnhub_client.company_news(ticker, _from=month_ago, to=today)
-    return news
+    now = datetime.now(timezone.utc)
+    today = now.strftime("%Y-%m-%d")
+    month_ago = (now - timedelta(days=30)).strftime("%Y-%m-%d")
+    return finnhub_client.company_news(ticker, _from=month_ago, to=today)
