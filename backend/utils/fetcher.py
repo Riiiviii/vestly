@@ -23,15 +23,6 @@ FINNHUB_API_KEY = os.getenv("FINNHUB_API_KEY")
 finnhub_client = finnhub.Client(api_key=FINNHUB_API_KEY)
 
 
-from backend.utils.fetcher import (
-    fetch_analyst_recommendations,
-    fetch_financials,
-    fetch_news,
-    fetch_price_history,
-    fetch_records,
-)
-
-
 async def run_analysis(ticker: str):
     (
         raw_ticker_info,
