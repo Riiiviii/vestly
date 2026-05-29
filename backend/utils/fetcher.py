@@ -23,6 +23,16 @@ if not FINNHUB_API_KEY:
 finnhub_client = finnhub.Client(api_key=FINNHUB_API_KEY)
 
 
+def _safe(result, default):
+    return default if isinstance(result, BaseException) else result
+
+
+def _camel_to_snake(name: str) -> str:
+    """Convert camelCase to snake_case."""
+    s1 = re.sub(r"(.)([A-Z][a-z]+)", r"\1_\2", name)
+    return re.sub(r"([a-z0-9])([A-Z])", r"\1_\2", s1).lower()
+
+
 async def run_analysis(ticker: str) -> RawData:
     (
         raw_ticker_info,
@@ -36,23 +46,18 @@ async def run_analysis(ticker: str) -> RawData:
         asyncio.to_thread(fetch_financials, ticker),
         asyncio.to_thread(fetch_price_history, ticker),
         asyncio.to_thread(fetch_analyst_recommendations, ticker),
+        return_exceptions=True,
     )
 
     return RawData(
-        company_information=CompanyInformation(**raw_ticker_info),
-        news=[News(**n) for n in raw_ticker_news],
-        financials=raw_financials,
-        price_history=raw_price_history,
+        company_information=CompanyInformation(**_safe(raw_ticker_info, {})),
+        news=[News(**n) for n in _safe(raw_ticker_news, [])],
+        financials=_safe(raw_financials, {}),
+        price_history=_safe(raw_price_history, {}),
         analyst_recommendations=[
-            AnalystRecommendation(**rec) for rec in raw_analyst_recs
+            AnalystRecommendation(**rec) for rec in _safe(raw_analyst_recs, [])
         ],
     )
-
-
-def _camel_to_snake(name: str) -> str:
-    """Convert camelCase to snake_case."""
-    s1 = re.sub(r"(.)([A-Z][a-z]+)", r"\1_\2", name)
-    return re.sub(r"([a-z0-9])([A-Z])", r"\1_\2", s1).lower()
 
 
 def fetch_analyst_recommendations(ticker: str):
