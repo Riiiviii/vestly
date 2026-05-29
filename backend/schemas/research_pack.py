@@ -1,7 +1,12 @@
 from pydantic import BaseModel, Field
 
 from schemas.primitives import MODEL_CONFIG
-from schemas.mcp_data import AnalystRecommendation, FinancialYearData, Issue, News
+from backend.schemas.raw_data import (
+    AnalystRecommendation,
+    FinancialYearData,
+    Issue,
+    News,
+)
 
 
 class CompanySnapshot(BaseModel):

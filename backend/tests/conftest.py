@@ -4,10 +4,10 @@ import re
 from pathlib import Path
 from datetime import datetime, timezone
 
-from schemas.mcp_data import (
+from backend.schemas.raw_data import (
     CompanyInformation,
     FinancialYearData,
-    MCPData,
+    RawData,
     News,
 )
 
@@ -63,8 +63,8 @@ def valid_mcp_data(
     valid_company_financials,
     valid_company_news,
     valid_company_price_history,
-) -> MCPData:
-    return MCPData(
+) -> RawData:
+    return RawData(
         company_information=valid_company_info,
         news=valid_company_news,
         financials=valid_company_financials,

@@ -83,7 +83,7 @@ class RawData(BaseModel):
     analyst_recommendations: list[AnalystRecommendation]
 
 
-class ValidatedData(BaseModel):
+class DeductionDetail(BaseModel):
     model_config = MODEL_CONFIG
 
     missing_financials: int
@@ -107,9 +107,9 @@ class Issue(BaseModel):
     description: str
 
 
-class DeducedMCP(BaseModel):
+class ValidatedData(BaseModel):
     model_config = MODEL_CONFIG
 
-    clean_data: MCPData
+    clean_data: RawData
     confidence_score: ConfidenceScore
     issues: list[Issue]

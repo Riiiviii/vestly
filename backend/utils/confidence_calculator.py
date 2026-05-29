@@ -1,12 +1,12 @@
 from typing import Final
 from datetime import datetime, timedelta, timezone
-from schemas.mcp_data import (
+from backend.schemas.raw_data import (
     CompanyInformation,
     ConfidenceScore,
-    DeducedMCP,
     DeductionDetail,
+    ValidatedData,
     Issue,
-    MCPData,
+    RawData,
     News,
 )
 
@@ -17,7 +17,7 @@ PRICE_HISTORY_DEDUCTION: Final = -15
 MISSING_COMPANY_FIELDS_DEDUCTION: Final = -15
 
 
-def calculate_confidence_score(mcp_data: MCPData) -> DeducedMCP:
+def calculate_confidence_score(raw_data: RawData) -> ValidatedData:
     """
     Runs all deduction checks against raw MCP data and returns the full
     validated output including clean data, confidence score breakdown,
@@ -25,7 +25,7 @@ def calculate_confidence_score(mcp_data: MCPData) -> DeducedMCP:
     """
     issues: list[Issue] = []
 
-    missing_financials_deduction = calculate_financial_deduction(mcp_data.financials)
+    missing_financials_deduction = calculate_financial_deduction(raw_data.financials)
     if missing_financials_deduction:
         issues.append(
             Issue(
@@ -34,12 +34,12 @@ def calculate_confidence_score(mcp_data: MCPData) -> DeducedMCP:
             )
         )
 
-    news_count_deduction, news_time_deduction = calculate_news_deductions(mcp_data.news)
+    news_count_deduction, news_time_deduction = calculate_news_deductions(raw_data.news)
     if news_count_deduction:
         issues.append(
             Issue(
                 reason="insufficient_news",
-                description=f"Only {len(mcp_data.news)} articles found, minimum is 3",
+                description=f"Only {len(raw_data.news)} articles found, minimum is 3",
             )
         )
     if news_time_deduction:
@@ -50,7 +50,7 @@ def calculate_confidence_score(mcp_data: MCPData) -> DeducedMCP:
             )
         )
 
-    price_history_deduction = calculate_price_history_deduction(mcp_data.price_history)
+    price_history_deduction = calculate_price_history_deduction(raw_data.price_history)
     if price_history_deduction:
         issues.append(
             Issue(
@@ -60,7 +60,7 @@ def calculate_confidence_score(mcp_data: MCPData) -> DeducedMCP:
         )
 
     company_fields_deduction, missing_fields = calculate_information_deductions(
-        mcp_data.company_information
+        raw_data.company_information
     )
     if missing_fields:
         issues.append(
@@ -70,17 +70,18 @@ def calculate_confidence_score(mcp_data: MCPData) -> DeducedMCP:
             )
         )
 
-    score = (
+    score = max(
+        0,
         100
         + missing_financials_deduction
         + news_count_deduction
         + news_time_deduction
         + price_history_deduction
-        + company_fields_deduction
+        + company_fields_deduction,
     )
 
-    return DeducedMCP(
-        clean_data=mcp_data,
+    return ValidatedData(
+        clean_data=raw_data,
         confidence_score=ConfidenceScore(
             score=score,
             deductions=DeductionDetail(
@@ -139,9 +140,8 @@ def calculate_price_history_deduction(price_history: dict) -> int:
     if not close_dates:
         return PRICE_HISTORY_DEDUCTION
 
-    earliest = datetime.fromisoformat(close_dates[0])
-    latest = datetime.fromisoformat(close_dates[-1])
-    days_of_data = (latest - earliest).days
+    parsed_dates = [datetime.fromisoformat(d) for d in close_dates]
+    days_of_data = (max(parsed_dates) - min(parsed_dates)).days
 
     return PRICE_HISTORY_DEDUCTION if days_of_data < 90 else 0
 
@@ -152,9 +152,6 @@ def calculate_information_deductions(info: CompanyInformation) -> tuple[int, lis
     Returns the deduction if any field is missing, along with which fields were absent.
     """
     required_fields = ["sector", "industry", "market_cap"]
-    if not info:
-        return (MISSING_COMPANY_FIELDS_DEDUCTION, required_fields)
-
     missing_fields = [
         field for field in required_fields if not getattr(info, field, None)
     ]

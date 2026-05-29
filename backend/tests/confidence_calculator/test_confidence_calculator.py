@@ -10,7 +10,7 @@ from utils.confidence_calculator import (
     PRICE_HISTORY_DEDUCTION,
     MISSING_FINANCIALS_DEDUCTION,
 )
-from schemas.mcp_data import CompanyInformation, MCPData
+from backend.schemas.raw_data import CompanyInformation, RawData
 
 # ── Company Confidence Score Testing ────────────────────────────────────────
 
@@ -28,7 +28,7 @@ def test_calculate_confidence_score_valid_data(valid_mcp_data):
 
 
 def test_calculate_confidence_score_all_empty():
-    empty_mcp_data = MCPData(
+    empty_mcp_data = RawData(
         company_information=CompanyInformation(),
         news=[],
         financials={},
