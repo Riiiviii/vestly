@@ -73,7 +73,7 @@ PriceHistory = dict[str, dict[str, float | None]]
 Financials = dict[str, FinancialYearData]
 
 
-class MCPData(BaseModel):
+class RawData(BaseModel):
     model_config = MODEL_CONFIG
 
     company_information: CompanyInformation
@@ -83,7 +83,7 @@ class MCPData(BaseModel):
     analyst_recommendations: list[AnalystRecommendation]
 
 
-class DeductionDetail(BaseModel):
+class ValidatedData(BaseModel):
     model_config = MODEL_CONFIG
 
     missing_financials: int
