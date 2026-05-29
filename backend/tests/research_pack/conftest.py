@@ -1,6 +1,6 @@
 import pytest
 
-from schemas.mcp_data import CompanyInformation, News
+from backend.schemas.raw_data import CompanyInformation, News
 
 # ── Research Pack Data Fixtures ────────────────────────────────────────
 

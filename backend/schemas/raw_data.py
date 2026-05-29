@@ -73,7 +73,7 @@ PriceHistory = dict[str, dict[str, float | None]]
 Financials = dict[str, FinancialYearData]
 
 
-class MCPData(BaseModel):
+class RawData(BaseModel):
     model_config = MODEL_CONFIG
 
     company_information: CompanyInformation
@@ -107,9 +107,9 @@ class Issue(BaseModel):
     description: str
 
 
-class DeducedMCP(BaseModel):
+class ValidatedData(BaseModel):
     model_config = MODEL_CONFIG
 
-    clean_data: MCPData
+    clean_data: RawData
     confidence_score: ConfidenceScore
     issues: list[Issue]
