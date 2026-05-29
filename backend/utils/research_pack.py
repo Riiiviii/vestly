@@ -1,10 +1,9 @@
 from datetime import datetime, timedelta
 
-from schemas.mcp_data import (
+from backend.schemas.raw_data import (
     CompanyInformation,
-    DeducedMCP,
+    ValidatedData,
     Financials,
-    FinancialYearData,
     News,
     PriceHistory,
 )
@@ -16,7 +15,7 @@ from schemas.research_pack import (
 )
 
 
-def build_research_pack(data: DeducedMCP) -> ResearchPack:
+def build_research_pack(data: ValidatedData) -> ResearchPack:
     """
     Transforms validated MCP data into a structured research pack
     consumed by all downstream panel agents.
