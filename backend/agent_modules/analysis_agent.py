@@ -4,7 +4,7 @@ from pathlib import Path
 from agents import Agent, Runner, trace
 from dotenv import load_dotenv
 from typing import Generic, TypeVar
-from pydantic import BaseModel, ValidationError
+from pydantic import BaseModel
 
 load_dotenv(override=True)
 
