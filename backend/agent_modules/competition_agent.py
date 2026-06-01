@@ -3,11 +3,10 @@ from typing import Final
 from pathlib import Path
 from agents import Agent, Runner, trace
 from dotenv import load_dotenv
-from pydantic import ValidationError
 from schemas.competition_agent import CompetitionOutput
 from agents.mcp import MCPServerStdio
 
-load_dotenv(override=True)
+load_dotenv()
 
 
 class CompetitionAgent:
