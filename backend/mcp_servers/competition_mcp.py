@@ -1,4 +1,9 @@
 import os
+import sys
+from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).parent.parent))
+
 import finnhub
 from mcp.server.fastmcp import FastMCP
 from dotenv import load_dotenv
@@ -47,6 +52,9 @@ async def get_research_pack(ticker: str) -> ResearchPack | dict:
         raw_data: RawData = await run_analysis(ticker)
         validated_data: ValidatedData = calculate_confidence_score(raw_data)
         research_pack: ResearchPack = build_research_pack(validated_data)
+
+        if not research_pack.company_snapshot.symbol:
+            return {"error": f"No data found for ticker: {ticker} — possibly delisted"}
         return research_pack
     except Exception as e:
         return {
