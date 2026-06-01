@@ -4,8 +4,7 @@ from mcp.server.fastmcp import FastMCP
 from dotenv import load_dotenv
 from datetime import datetime, timedelta
 
-
-load_dotenv(override=True)
+load_dotenv()
 FINNHUB_API_KEY = os.getenv("FINNHUB_API_KEY")
 
 
