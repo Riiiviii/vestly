@@ -30,6 +30,30 @@ def get_peers(ticker: str) -> list[str] | dict:
         return {"error": f"Failed to fetch company peers for {ticker}: {str(e)}"}
 
 
+@mcp.tool()
+async def get_research_pack(ticker: str) -> ResearchPack | dict:
+    """This tool provides a research pack for a company. The research pack includes:
+
+    - Company summary: Company information
+    - Company snapshot: Key valuation and market metrics
+    - Financial Snapshot: Key income statement metrics per fiscal year
+    - Price movement: Close prices movement signals
+    - Recent News: The 15 most recent news articles
+
+    Args:
+        ticker: the stock ticker
+    """
+    try:
+        raw_data: RawData = await run_analysis(ticker)
+        validated_data: ValidatedData = calculate_confidence_score(raw_data)
+        research_pack: ResearchPack = build_research_pack(validated_data)
+        return research_pack
+    except Exception as e:
+        return {
+            "error": f"Failed to fetch company research pack for {ticker}: {str(e)}"
+        }
+
+
 if __name__ == "__main__":
     print(f"MCP Server Status: {server_name} initialized")
     mcp.run()
