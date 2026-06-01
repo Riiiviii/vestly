@@ -1,6 +1,6 @@
 from datetime import datetime, timedelta
 
-from backend.schemas.raw_data import (
+from schemas.raw_data import (
     CompanyInformation,
     ValidatedData,
     Financials,
