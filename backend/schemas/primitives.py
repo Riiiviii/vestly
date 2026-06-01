@@ -11,4 +11,5 @@ EvidenceSource = Literal[
     "flags",
     "price_movement",
     "company_summary",
+    "peer_research_pack",
 ]

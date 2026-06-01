@@ -2,7 +2,7 @@ from typing import Literal
 
 from pydantic import BaseModel, Field
 
-from backend.schemas.raw_data import News
+from schemas.raw_data import News
 from schemas.primitives import MODEL_CONFIG
 
 

@@ -43,11 +43,3 @@ class AnalysisAgent(Generic[TOutput]):
                     f"{self.name.capitalize()} agent produced no final output"
                 )
             return result.final_output
-
-    def _parse_result(self, output: str) -> TOutput:
-        try:
-            return self.output_model.model_validate_json(output)
-        except ValidationError as e:
-            raise RuntimeError(
-                f"{self.name.capitalize()} agent output failed validation: {e}"
-            ) from e

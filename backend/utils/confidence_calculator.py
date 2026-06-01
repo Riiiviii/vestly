@@ -1,6 +1,6 @@
 from typing import Final
 from datetime import datetime, timedelta, timezone
-from backend.schemas.raw_data import (
+from schemas.raw_data import (
     CompanyInformation,
     ConfidenceScore,
     DeductionDetail,

@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from pipeline import run_analysis
+from pipeline import analyze_ticker
 
 app = FastAPI()
 
@@ -11,5 +11,5 @@ def read_root():
 
 @app.get("/analyze")
 async def analyze(ticker: str):
-    data = await run_analysis(ticker)
+    data = await analyze_ticker(ticker)
     return data

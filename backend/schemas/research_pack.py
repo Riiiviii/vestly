@@ -1,7 +1,7 @@
 from pydantic import BaseModel, Field
 
 from schemas.primitives import MODEL_CONFIG
-from backend.schemas.raw_data import (
+from schemas.raw_data import (
     AnalystRecommendation,
     FinancialYearData,
     Issue,

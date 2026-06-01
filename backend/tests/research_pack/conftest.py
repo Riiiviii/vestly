@@ -1,6 +1,6 @@
 import pytest
 
-from backend.schemas.raw_data import CompanyInformation, News
+from schemas.raw_data import CompanyInformation, News
 
 # ── Research Pack Data Fixtures ────────────────────────────────────────
 
