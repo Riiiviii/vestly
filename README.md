@@ -96,6 +96,7 @@ Panel agents marked with (MCP) make additional tool calls at reasoning time — 
 
 ```bash
 # Install dependencies
+cd backend
 uv sync
 
 # Set up environment variables
@@ -108,7 +109,7 @@ uv run mcp-servers/yfinance-mcp.py
 # Start Finnhub MCP server
 uv run mcp-servers/finnhub-mcp.py
 
-# Start FastAPI backend
+# Start FastAPI backend (run from backend/)
 uv run fastapi dev main.py
 ```
 

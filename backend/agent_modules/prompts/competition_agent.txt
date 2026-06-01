@@ -37,7 +37,7 @@ Tool Usage:
 3. Call get_research_pack(peer_ticker) for each selected peer — only after completing step 2
 4. If get_research_pack returns an error for a peer, skip that peer entirely and record it in data_limitations
 5. Do not select more than 3 peers
-6. Do not call get_research_pack on more than 6 tickers in total — if fewer than 2 succeed, produce output with whatever valid peers you have and record the failures in data_limitations
+6. If fewer than 2 peers return valid data, produce output with whatever valid peers you have and record all failures in data_limitations — do not expand your selection
 
 Analysis Guidelines:
 

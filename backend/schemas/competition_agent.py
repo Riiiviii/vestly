@@ -12,7 +12,7 @@ class CompetitiveFactor(BaseModel):
 class Peer(BaseModel):
     ticker: str = Field(min_length=1, max_length=10)
     selection_reason: str = Field(min_length=1, max_length=150)
-    factors: list[CompetitiveFactor]
+    factors: list[CompetitiveFactor] = Field(min_length=0, max_length=5)
     summary: str = Field(min_length=1)
     relative_position: int = Field(ge=-100, le=100)
 
