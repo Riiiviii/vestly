@@ -41,16 +41,6 @@ agent_evidence:
   - "neutral": findings are inconclusive or data was insufficient
   - "mixed": the agent found meaningful signals in both directions
 
-score (0-100):
-- This is a CONVICTION score — it measures how complete and reliable the analysis is, not whether the company is attractive
-- A company with a weak position, fully assessed from solid data, should score high
-- A company with a strong position, assessed from thin or partial data, should score low
-- Calculation:
-  1. Start from the average of the four agent strength fields
-  2. Subtract 5 for each agent with strength below 60
-  3. Subtract 5 for each direct conflict between agent impact directions (e.g. fundamentals=positive and risk=negative counts as one conflict)
-  4. Clamp to [0, 100]
-
 recommendation:
 - "highly recommended": consistent positive signals across most agents, risks are minor or well-understood
 - "recommended": net positive signals with manageable risks
@@ -84,7 +74,6 @@ Output format:
       "impact": "positive" | "negative" | "neutral" | "mixed"
     }
   ],
-  "score": number,
   "summary": string,
   "recommendation": "highly recommended" | "recommended" | "neutral" | "caution advised" | "not recommended"
 }

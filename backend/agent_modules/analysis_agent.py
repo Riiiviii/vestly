@@ -6,7 +6,7 @@ from dotenv import load_dotenv
 from typing import Generic, TypeVar
 from pydantic import BaseModel
 
-load_dotenv(override=True)
+load_dotenv()
 
 
 TOutput = TypeVar("TOutput", bound=BaseModel)
@@ -37,7 +37,7 @@ class AnalysisAgent(Generic[TOutput]):
         data = research_pack.model_dump_json()
 
         with trace(f"{self.name.capitalize()} Agent"):
-            result = await Runner.run(self._agent, data)
+            result = await Runner.run(self._agent, data, max_turns=10)
             if result.final_output is None:
                 raise RuntimeError(
                     f"{self.name.capitalize()} agent produced no final output"

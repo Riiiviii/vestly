@@ -1,5 +1,5 @@
 from typing import Literal
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, model_validator
 from schemas.primitives import MODEL_CONFIG
 from schemas.fundamentals_agent import FundamentalsOutput
 from schemas.sentiment_agent import SentimentOutput
@@ -32,7 +32,6 @@ class JudgeOutput(BaseModel):
     risks: list[str] = Field(min_length=1)
     strengths: list[str] = Field(min_length=1)
     agent_evidence: list[AgentEvidence] = Field(min_length=4, max_length=4)
-    score: int = Field(le=100, ge=0)
     summary: str = Field(min_length=1)
     recommendation: Literal[
         "highly recommended",
@@ -41,3 +40,14 @@ class JudgeOutput(BaseModel):
         "caution advised",
         "not recommended",
     ]
+
+    @model_validator(mode="after")
+    def validate_agent_evidence_coverage(self) -> "JudgeOutput":
+        expected = {"fundamentals", "sentiment", "risk", "competition"}
+        actual = {item.agent for item in self.agent_evidence}
+        if actual != expected:
+            raise ValueError(
+                "agent_evidence must include exactly one entry for each of: "
+                "fundamentals, sentiment, risk, competition"
+            )
+        return self

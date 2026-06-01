@@ -6,7 +6,7 @@ from dotenv import load_dotenv
 from schemas.competition_agent import CompetitionOutput
 from agents.mcp import MCPServerStdio
 
-load_dotenv(override=True)
+load_dotenv()
 
 
 class CompetitionAgent:
