@@ -165,7 +165,7 @@ Three of the four agents are pure transformations: they consume the research pac
 
 **Status:** Complete. Output validated via Pydantic, evidence-grounded prompt.
 
-### 4.2 Sentiment Agent
+### 4.2 Sentiment Agent ✅
 
 - News tone and volume
 - Short-term narrative (what's the market talking about)
@@ -173,7 +173,9 @@ Three of the four agents are pure transformations: they consume the research pac
 
 **Data source:** `recent_news` from research pack.
 
-### 4.3 Risk Agent
+**Status:** Complete. Output validated via Pydantic.
+
+### 4.3 Risk Agent ✅
 
 - Downside scenarios (what could go wrong, grounded in specific data)
 - Concentration and dependency risks
@@ -184,35 +186,37 @@ Three of the four agents are pure transformations: they consume the research pac
 
 > Originally scoped as Risk/Macro. Macro reasoning was dropped because yfinance and Finnhub free tier provide no macro data, and reasoning about macro from LLM priors would launder unsupported claims as data-driven analysis. Scope now strictly company-specific risk.
 
-### 4.4 Competitive Agent
+**Status:** Complete. Output validated via Pydantic.
+
+### 4.4 Competitive Agent ✅
 
 The only agent with dynamic MCP tool access. The justification: meaningful competitive analysis requires data on competitors themselves — their financials, their valuation, their recent news — not just mentions of them in the primary ticker's news. The research pack cannot pre-fetch this because competitors are only knowable after the LLM examines the company summary.
 
 **Workflow:**
 
-1. Read `company_summary` and `financial_snapshot` from the primary ticker's research pack
-2. Identify up to 3 likely competitor tickers
-3. For each competitor, call `get_company_information` and `get_company_news` via MCP
-4. Produce comparative analysis grounded in the fetched data
+1. Call `get_peers(ticker)` via MCP to retrieve a Finnhub peer list for the target ticker
+2. Review all returned tickers and select up to 3 best candidates based on sector alignment, market cap proximity, and business model overlap
+3. Call `get_research_pack(peer_ticker)` for each selected peer — this runs the full data pipeline (fetch → validate → research pack) on the peer
+4. Produce comparative analysis grounded in the fetched research packs
 
-**Data source:** primary ticker's research pack + dynamic MCP calls for competitor data.
+**Data source:** primary ticker's research pack + dynamic MCP calls (`get_peers`, `get_research_pack`) for competitor data.
 
 **Constraints:**
 
-- **Hard cap of 3 competitor lookups.** Enforced in the agent code, not the prompt.
-- **Graceful failure on missing competitors.** If a competitor ticker doesn't exist or returns empty data, the agent continues with what it has.
-- **Per-call timeout** on each MCP call.
-- **`competitors_analyzed` field in output schema** — lists which tickers were actually fetched, so the Judge can see what comparison was made.
-- **No financial trades data.** Just company info + news for each competitor. Keeps the agent fast.
+- **Fixed selection of ≤3 peers before any `get_research_pack` calls.** Selection is not expanded after failures.
+- **Graceful failure on missing peers.** Errors recorded in `data_limitations`; agent produces output with whatever valid peers it has.
+- **`data_limitations` field in output schema** — lists failed peer fetches and data gaps so the Judge can see what comparison was made.
 
 **Output focus:**
 
-- Identified competitive set with rationale
-- Comparative positioning (size, growth, profitability where data allows)
-- Threats and advantages backed by competitor news mentions
-- Honest acknowledgement when competitor data is sparse or missing
+- Selected peer set with selection rationale
+- Per-peer competitive factors labelled positive (target stronger) or negative (peer stronger)
+- Per-peer relative position score (−100 to +100)
+- Overall competitive summary and strength score (analytical confidence, not competitive dominance)
 
-> This is the agent that justifies the MCP architecture in this project. It's also the agent with the most failure modes — LLM picks wrong competitors, MCP calls fail, comparison data is incomplete. Build with telemetry on every step so you can debug when output quality drops.
+> This is the agent that justifies the MCP architecture in this project. It's also the agent with the most failure modes — peer lists include delisted tickers, MCP calls fail, comparison data is incomplete. The prompt enforces fixed pre-selection to prevent the agent from iterating indefinitely through the peer list.
+
+**Status:** Complete. End-to-end tested.
 
 ### Critical Rule
 
@@ -228,7 +232,7 @@ If two agents sound the same → your prompts are wrong. Tighten the schemas and
 
 For one ticker, you get 4 clearly different perspectives with non-overlapping insights and evidence-grounded claims. The Competitive agent's `competitors_analyzed` field is non-empty for at least one large-cap ticker.
 
-### Status: ⏳ Pending (Fundamentals complete; Sentiment, Risk, Competitive remaining)
+### Status: ✅ Complete
 
 ---
 
