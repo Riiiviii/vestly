@@ -19,7 +19,7 @@ class ConflictingSignal(BaseModel):
     model_config = MODEL_CONFIG
 
     description: str = Field(min_length=1)
-    agents: list[str] = Field(min_length=2, max_length=4)
+    agents: list[Literal["fundamentals", "sentiment", "risk", "competition"]] = Field(min_length=2, max_length=4)
 
 
 class PanelOutputs(BaseModel):
@@ -37,10 +37,10 @@ class JudgeOutput(BaseModel):
 
     thesis: str = Field(min_length=1)
     time_horizon: Literal["short-term", "medium-term", "long-term"]
-    strengths: list[str] = Field(min_length=1)
-    risks: list[str] = Field(min_length=1)
-    conflicting_signals: list[ConflictingSignal]
-    data_gaps: list[str]
+    strengths: list[str] = Field(default_factory=list)
+    risks: list[str] = Field(default_factory=list)
+    conflicting_signals: list[ConflictingSignal] = Field(default_factory=list)
+    data_gaps: list[str] = Field(default_factory=list)
     agent_evidence: list[AgentEvidence] = Field(min_length=4, max_length=4)
     summary: str = Field(min_length=1)
     recommendation: Literal[

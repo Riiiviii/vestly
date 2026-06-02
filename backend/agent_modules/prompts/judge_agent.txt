@@ -54,7 +54,7 @@ conflicting_signals:
 
 data_gaps:
 - List every meaningful limitation in the data that affects the reliability of this synthesis
-- Sources: low agent strength scores, data_limitations from competition_output, flags from the research pack, agents that returned neutral due to insufficient data
+- Sources: low agent strength scores, data_limitations from competition_output, data_layer_red_flags from risk_output, agents that returned neutral due to insufficient data
 - Each entry is a single concrete statement (e.g. "Competition agent assessed only 1 peer due to failed data fetches")
 - If no material gaps exist, return an empty list
 
