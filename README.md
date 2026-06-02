@@ -14,7 +14,7 @@ A single API call triggers a multi-stage pipeline:
 2. **Data Integrity** — A deterministic validation layer scores data quality and flags gaps before any analysis begins. No LLM involved — rules are auditable and consistent
 3. **Research Pack** — Validated data is packaged into a single structured object passed to all downstream agents
 4. **Panel Agents** — Four specialised agents analyse the data in parallel from distinct lenses: fundamentals, sentiment, risk/macro, and competitive positioning. Each agent can call MCP tools at reasoning time to fetch additional data
-5. **Judge Agent** — Synthesises all four perspectives into a final structured thesis with confidence scores and conflicting signals surfaced explicitly
+5. **Judge Agent** — Synthesises all four perspectives into a final structured thesis with a directional recommendation, agent-level evidence breakdown, and explicit risks and strengths
 
 ---
 
@@ -56,7 +56,7 @@ Fundamentals  Sentiment  Risk/Macro  Competitive
     Structured JSON Response
 ```
 
-Panel agents marked with (MCP) make additional tool calls at reasoning time — the Fundamentals Agent uses analyst recommendations, the Competitive Agent makes targeted Finnhub news queries.
+The Competitive Agent (MCP) fetches peer tickers via Finnhub and runs the full data pipeline on each selected peer at reasoning time, enabling genuine cross-ticker comparison.
 
 ---
 
@@ -81,9 +81,9 @@ Panel agents marked with (MCP) make additional tool calls at reasoning time — 
 |-------|-------------|--------|
 | 1 | MCP servers + FastAPI foundation | ✅ Complete |
 | 2 | Data integrity layer + confidence scoring | ✅ Complete |
-| 3 | Research Pack | 🔄 In progress |
-| 4 | Panel agents | ⏳ Pending |
-| 5 | Judge agent | ⏳ Pending |
+| 3 | Research Pack | ✅ Complete |
+| 4 | Panel agents | ✅ Complete |
+| 5 | Judge agent | ✅ Complete |
 | 6 | Orchestration | ⏳ Pending |
 | 7 | Auth + persistence | ⏳ Pending |
 | 8 | Frontend | ⏳ Pending |
@@ -118,6 +118,6 @@ uv run fastapi dev main.py
 ## Known Limitations
 
 - **Sentiment scoring** — Finnhub's sentiment endpoint requires a paid plan. Sentiment is instead derived from raw news article analysis by the Sentiment Agent directly, which is less precise than dedicated NLP scoring.
-- **Competitive analysis** — No dedicated competitive data source is available on free tiers. The Competitive Agent reasons from news signals and LLM knowledge of the sector, which limits its precision for niche or private companies.
+- **Competitive analysis** — The Competitive Agent fetches real peer data via Finnhub and runs the full analysis pipeline on each peer. Peer lists from Finnhub can include delisted or OTC tickers; the agent filters these but precision degrades for niche or thinly-traded companies.
 - **Data quality variance** — yfinance data quality degrades for small/mid-cap, recently listed, and international stocks. The confidence scoring system flags these gaps explicitly rather than silently producing low-quality output.
 - **Non-determinism** — LLM outputs are non-deterministic by nature. The Judge Agent runs at `temperature=0` to improve consistency, but some variance between runs is expected and documented in the evaluation layer.

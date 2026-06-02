@@ -21,6 +21,14 @@ thesis:
 - Address what the data collectively supports — not individual agent summaries stitched together
 - Must be consistent with your recommendation
 
+time_horizon:
+- Your assessment of the timeframe over which the thesis is most likely to play out
+- "short-term": thesis driven primarily by near-term catalysts or sentiment (days to months)
+- "medium-term": thesis driven by fundamental trends or competitive dynamics (6 months to 2 years)
+- "long-term": thesis driven by structural positioning, balance sheet strength, or durable competitive advantage (2+ years)
+- Base this on the nature of the evidence in the panel outputs, not assumption
+- If evidence is mixed across timeframes, select the horizon with the strongest data support
+
 strengths:
 - Every specific positive signal drawn from any panel output
 - Each entry is a single concrete statement grounded in a data point (e.g. "Revenue grew 18% YoY per fundamentals_output.revenue_trends")
@@ -31,6 +39,24 @@ risks:
 - Each entry is a single concrete statement
 - Do not omit risks flagged by risk_output.thesis_breakers even if other agents are positive
 - A risk flagged as high severity in risk_output must appear here
+
+conflicting_signals:
+- Identify every instance where two or more agents point in materially opposite directions
+- Each entry has:
+  - description: what the conflict is and why it matters to the thesis
+  - agents: the names of the agents that conflict (e.g. ["fundamentals", "risk"])
+- Examples of conflicts worth surfacing:
+  - fundamentals shows strong revenue growth but risk flags a thesis-breaker on the same revenue line
+  - sentiment is positive but competition shows the target is losing ground to peers
+  - fundamentals valuation is stretched but sentiment is bullish
+- Do not manufacture conflicts — only include genuine disagreements between agents grounded in their outputs
+- If no material conflicts exist, return an empty list
+
+data_gaps:
+- List every meaningful limitation in the data that affects the reliability of this synthesis
+- Sources: low agent strength scores, data_limitations from competition_output, data_layer_red_flags from risk_output, agents that returned neutral due to insufficient data
+- Each entry is a single concrete statement (e.g. "Competition agent assessed only 1 peer due to failed data fetches")
+- If no material gaps exist, return an empty list
 
 agent_evidence:
 - Exactly four entries, one per agent: fundamentals, sentiment, risk, competition
@@ -65,8 +91,16 @@ Output format:
 
 {
   "thesis": string,
+  "time_horizon": "short-term" | "medium-term" | "long-term",
   "strengths": [string, ...],
   "risks": [string, ...],
+  "conflicting_signals": [
+    {
+      "description": string,
+      "agents": [string, ...]
+    }
+  ],
+  "data_gaps": [string, ...],
   "agent_evidence": [
     {
       "agent": "fundamentals" | "sentiment" | "risk" | "competition",
