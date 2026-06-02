@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from pipeline import analyze_ticker
 
 app = FastAPI()
@@ -11,5 +11,7 @@ def read_root():
 
 @app.get("/analyze")
 async def analyze(ticker: str):
-    data = await analyze_ticker(ticker)
-    return data
+    try:
+        return await analyze_ticker(ticker)
+    except RuntimeError as e:
+        raise HTTPException(status_code=500, detail=str(e))
