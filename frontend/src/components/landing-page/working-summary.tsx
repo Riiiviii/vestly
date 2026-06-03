@@ -36,7 +36,7 @@ export default function WorkingSummary() {
     <section className="py-15 bg-white">
       <div className="mx-auto max-w-5xl px-6">
         <div className="text-center mb-20">
-          <p className="font-mono text-xs tracking-widest text-(--green) uppercase mb-3">
+          <p className="font-mono text-xs tracking-widest text-(--brand) uppercase mb-3">
             How it works
           </p>
           <h2 className="font-serif font-bold text-4xl text-(--ink)">
@@ -58,7 +58,7 @@ export default function WorkingSummary() {
                   <div className="hidden md:block absolute left-1/2 right-0 top-1/2 h-0.5 bg-(--border2)" />
                 )}
                 <div className="relative z-10 w-10 h-10 rounded-full border-2 border-(--border2) bg-white flex items-center justify-center">
-                  <span className="font-mono text-sm font-bold text-(--green)">
+                  <span className="font-mono text-sm font-bold text-(--brand)">
                     {String(step.step).padStart(2, "0")}
                   </span>
                 </div>

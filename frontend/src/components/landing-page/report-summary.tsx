@@ -41,7 +41,7 @@ export default function ReportSummary() {
     <section className="py-20 bg-white">
       <div className="mx-auto max-w-3xl px-6">
         <div className="text-center mb-16">
-          <h2 className="font-mono text-xs tracking-widest text-(--green) uppercase mb-4">
+          <h2 className="font-mono text-xs tracking-widest text-(--brand) uppercase mb-4">
             Every report includes
           </h2>
           <h3 className="font-serif font-bold text-4xl text-(--ink) leading-tight">
