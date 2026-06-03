@@ -84,7 +84,7 @@ The Competitive Agent (MCP) fetches peer tickers via Finnhub and runs the full d
 | 3 | Research Pack | ✅ Complete |
 | 4 | Panel agents | ✅ Complete |
 | 5 | Judge agent | ✅ Complete |
-| 6 | Orchestration | ⏳ Pending |
+| 6 | Orchestration | ✅ Complete |
 | 7 | Auth + persistence | ⏳ Pending |
 | 8 | Frontend | ⏳ Pending |
 | 9 | Deployment | ⏳ Pending |

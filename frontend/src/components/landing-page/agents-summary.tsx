@@ -33,7 +33,7 @@ export default function AgentsSummary() {
     <section className="py-24 bg-(--cream)">
       <div className="mx-auto max-w-4xl px-6">
         <div className="mb-14 text-center">
-          <h2 className="font-mono text-xs tracking-widest text-(--green) uppercase mb-3">
+          <h2 className="font-mono text-xs tracking-widest text-(--brand) uppercase mb-3">
             Under the hood
           </h2>
           <h3 className="font-serif font-bold text-4xl text-(--ink) mb-5">
@@ -41,9 +41,10 @@ export default function AgentsSummary() {
           </h3>
           <p className="text-sm text-(--ink2) leading-relaxed max-w-xl mx-auto">
             Vestly runs four specialist agents in parallel, each with a distinct
-            focus, then passes all four outputs to a Judge Agent that synthesises
-            them into one structured thesis. Every analysis is grounded in live
-            data from <strong className="text-(--ink)">yfinance</strong> and{" "}
+            focus, then passes all four outputs to a Judge Agent that
+            synthesises them into one structured thesis. Every analysis is
+            grounded in live data from{" "}
+            <strong className="text-(--ink)">yfinance</strong> and{" "}
             <strong className="text-(--ink)">Finnhub</strong>.
           </p>
         </div>
@@ -74,8 +75,8 @@ export default function AgentsSummary() {
           </div>
 
           {/* Right: Judge Agent */}
-          <div className="w-full md:w-56 mt-6 md:mt-0 bg-(--green) rounded-xl p-6 flex flex-col justify-center shrink-0">
-            <p className="font-mono text-xs tracking-widest text-(--green-hero) uppercase mb-2">
+          <div className="w-full md:w-56 mt-6 md:mt-0 bg-(--brand) rounded-xl p-6 flex flex-col justify-center shrink-0">
+            <p className="font-mono text-xs tracking-widest text-(--brand-hero) uppercase mb-2">
               Synthesis
             </p>
             <h4 className="font-serif font-bold text-2xl text-white mb-3">

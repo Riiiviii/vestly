@@ -15,8 +15,8 @@ export default function Hero() {
 
       <div className="relative z-10 text-center text-white mx-auto w-full max-w-2xl">
         <h1 className="font-serif font-bold text-4xl sm:text-5xl md:text-5xl lg:text-6xl">
-          Smart stock analysis,<br /> made{" "}
-          <i className="text-(--green-hero)">simple.</i>
+          Smart stock analysis,
+          <br /> made <i className="text-(--brand-hero)">simple.</i>
         </h1>
         <p className="text-white/85 mt-6">
           Enter any ticker. Get a clear, AI-generated analysis with <br />{" "}

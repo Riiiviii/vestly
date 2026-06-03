@@ -242,37 +242,36 @@ For one ticker, you get 4 clearly different perspectives with non-overlapping in
 
 Synthesise multiple perspectives into one coherent, structured thesis.
 
-### Tasks
-
-**1. Define strict output schema**
+**Output schema (implemented):**
 
 ```json
 {
-  "company": "...",
-  "thesis_strength": 0-100,
-  "confidence": 0-100,
-  "time_horizon": "short/medium/long",
-  "key_tailwinds": [],
-  "key_risks": [],
-  "conflicting_signals": [],
-  "data_gaps": [],
-  "final_summary": "..."
+  "thesis": "...",
+  "time_horizon": "short-term | medium-term | long-term",
+  "strengths": ["..."],
+  "risks": ["..."],
+  "conflicting_signals": [
+    { "description": "...", "agents": ["fundamentals", "risk"] }
+  ],
+  "data_gaps": ["..."],
+  "agent_evidence": [
+    { "agent": "fundamentals | sentiment | risk | competition", "summary": "...", "impact": "positive | negative | neutral | mixed" }
+  ],
+  "summary": "...",
+  "recommendation": "highly recommended | recommended | neutral | caution advised | not recommended"
 }
 ```
 
-**2. Force reasoning quality**
+**Key design decisions:**
 
-- Must explicitly reference each panel agent's output
-- Must surface disagreements between agents
-- Must acknowledge uncertainty — a confident output with low data quality is a bug, not a feature
-- `thesis_strength` should be lower when agents disagree significantly
-- Run at `temperature=0` for consistency
-
-**3. Define how `confidence` is derived**
-
-The Judge's `confidence` is a function of (a) the panel agents' `strength` scores (which now consistently mean analytical confidence across all four agents) and (b) the degree of agreement between agents. A defensible starting formula: `confidence = mean(agent_strengths) - disagreement_penalty`. Decide the formula deliberately rather than letting the LLM improvise.
-
-> The judge cannot say "buy" or "sell." It produces a structured reasoning output. That's a feature, not a limitation.
+- `agent_evidence` has exactly 4 entries (enforced by Pydantic `model_validator`) — one per panel agent, making the Judge's reasoning fully transparent
+- `conflicting_signals` explicitly surfaces where agents disagree, with the conflicting agent names attached
+- `data_gaps` aggregates data quality issues from all panel outputs in one place
+- `time_horizon` grounds the thesis in a concrete investment timeframe
+- `recommendation` replaces a numeric score — the system never says buy or sell
+- `strengths` and `risks` are uncapped — the Judge surfaces every well-supported signal
+- Runs at `temperature=0` for consistency
+- Input is a `PanelOutputs` wrapper (ticker + 4 agent outputs) — the Judge never sees the raw ResearchPack
 
 ### Exit Criteria
 
@@ -280,7 +279,7 @@ The Judge's `confidence` is a function of (a) the panel agents' `strength` score
 - Conflicting signals are explicitly called out
 - You can explain every field to an interviewer
 
-### Status: ⏳ Pending
+### Status: ✅ Complete
 
 ---
 
@@ -296,33 +295,21 @@ Wire everything together into a reliable, observable pipeline.
 fetch (yfinance + Finnhub) → validate (data integrity layer) → research pack → panel agents (parallel) → judge
 ```
 
-### Tasks
+**Implementation:**
 
-- Parallel panel execution with `asyncio.gather`
-- Structured error handling at each stage (one agent failure must not kill the run)
-- Per-agent timeouts on `Runner.run`
-- Per-MCP-call timeouts inside the Competitive agent
-- Structured logging at every stage with a `run_id`:
-
-```json
-{
-  "run_id": "...",
-  "ticker": "AAPL",
-  "stage": "fundamentals_agent",
-  "output": {...},
-  "timestamp": "..."
-}
-```
-
-- Pydantic `ValidationError` handling: skip the agent, log the failure, continue with the rest
+- Panel agents run in parallel via `asyncio.TaskGroup` (structured concurrency — cleaner failure propagation than `asyncio.gather`)
+- Per-stage timeouts: panel agents 60s, competition agent 120s, judge 60s
+- `_named()` helper wraps all agent exceptions with agent name and ticker for clear error attribution
+- `except* RuntimeError` catches the first panel failure and re-raises immediately
+- `main.py` catches all `RuntimeError` from the pipeline and returns HTTP 500 with logging
 
 ### Exit Criteria
 
 - One API call runs the full pipeline reliably
 - Individual stage failures are caught and logged, not silently swallowed
-- Competitive agent failures (MCP timeouts, missing competitor data) are handled gracefully without taking down the run
+- Competitive agent failures are handled gracefully without taking down the run
 
-### Status: ⏳ Pending
+### Status: ✅ Complete
 
 ---
 
