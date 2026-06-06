@@ -1,5 +1,13 @@
-
 @import "tailwindcss";
+
+@theme {
+  --font-serif: 'Playfair Display', serif;
+}
+
+:root {
+  --border-primary: #26302a;
+  --glow-primary: #65e287;
+}
 
 * {
   box-sizing: border-box;
@@ -9,9 +17,11 @@ html,
 body,
 #app {
   min-height: 100%;
+  color: white;
 }
 
 body {
   margin: 0;
+  background-color: #0b0e0c;
 }
 
