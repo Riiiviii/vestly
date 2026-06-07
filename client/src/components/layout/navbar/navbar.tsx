@@ -1,9 +1,9 @@
-import Button from '../ui/button'
+import Button from '../../ui/button'
+import NavLink from './navlink'
 
 type NavLinks = {
   href: string
   label: string
-  active?: boolean
 }
 
 const navLinks: NavLinks[] = [
@@ -22,9 +22,9 @@ function Navbar() {
       <div className="flex items-center">
         <div className="flex gap-2">
           {navLinks.map((link) => (
-            <Button variant="navbar" active={true}>
+            <NavLink key={link.href} to={link.href}>
               {link.label}
-            </Button>
+            </NavLink>
           ))}
         </div>
         <div></div>
