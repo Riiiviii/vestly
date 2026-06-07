@@ -8,7 +8,9 @@
   --brand-primary: #65e287;
   --brand-secondary: #132416;
   --border-color: #26302a;
-
+  --text-primary: white;
+  --text-secondary: #5d6862;
+  --text-muted: #9eada6
 }
 
 * {
@@ -19,7 +21,7 @@ html,
 body,
 #app {
   min-height: 100%;
-  color: white;
+  color: var(--text-primary);
 }
 
 body {
