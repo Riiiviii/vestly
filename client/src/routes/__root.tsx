@@ -1,7 +1,7 @@
 import { HeadContent, Scripts, createRootRoute } from '@tanstack/react-router'
 
 import appCss from '../styles.css?url'
-import Navbar from '#/components/layout/navbar.tsx'
+import Navbar from '#/components/layout/navbar/navbar.tsx'
 
 export const Route = createRootRoute({
   head: () => ({
