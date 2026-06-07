@@ -2,13 +2,13 @@ import { Link } from '@tanstack/react-router'
 import NavLink from './navlink'
 
 type NavLinks = {
-  href: string
+  to: string
   label: string
 }
 
 const navLinks: NavLinks[] = [
-  { href: '/', label: 'Analyze' },
-  { href: '/about', label: 'About' },
+  { to: '/', label: 'Analyze' },
+  { to: '/about', label: 'About' },
 ]
 
 function Navbar() {
@@ -22,7 +22,7 @@ function Navbar() {
       <div className="flex items-center gap-5">
         <div className="flex gap-2">
           {navLinks.map((link) => (
-            <NavLink key={link.href} to={link.href}>
+            <NavLink key={link.to} to={link.to}>
               {link.label}
             </NavLink>
           ))}
