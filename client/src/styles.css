@@ -5,8 +5,10 @@
 }
 
 :root {
-  --border-primary: #26302a;
-  --glow-primary: #65e287;
+  --brand-primary: #65e287;
+  --brand-secondary: #132416;
+  --border-color: #26302a;
+
 }
 
 * {
