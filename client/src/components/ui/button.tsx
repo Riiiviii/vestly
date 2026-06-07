@@ -1,17 +1,14 @@
 import type { ComponentProps } from 'react'
 import { twMerge } from 'tailwind-merge'
 
-type Variant = 'primary' | 'none' | 'navbar'
-type Active = true | false
+type Variant = 'primary' | 'none'
 
 type ButtonProps = {
   variant?: Variant
-  active?: boolean
 } & ComponentProps<'button'>
 
 function Button({
   variant = 'primary',
-  active = false,
   className,
   ...props
 }: ButtonProps) {
@@ -20,7 +17,7 @@ function Button({
       {...props}
       className={twMerge(
         `transition-colors px-4 py-3 rounded-lg cursor-pointer`,
-        getVariantStyles(variant, active),
+        getVariantStyles(variant),
         className,
       )}
     />
@@ -29,9 +26,7 @@ function Button({
 
 export default Button
 
-function getVariantStyles(variant: Variant, active: Active) {
-  if (variant === 'navbar') return getNavbarStyles(active)
-
+function getVariantStyles(variant: Variant) {
   switch (variant) {
     case 'primary':
       return ''
@@ -39,16 +34,5 @@ function getVariantStyles(variant: Variant, active: Active) {
       return ''
     default:
       throw new Error(`Invalid variant: ${variant satisfies never}`)
-  }
-}
-
-function getNavbarStyles(active: Active) {
-  switch (active) {
-    case true:
-      return 'text-(--brand-primary) bg-(--brand-secondary) cursor-default disabled:cursor-not-allowed'
-    case false:
-      return 'text-zinc-300 hover:text-white hover:bg-[#141a16]'
-    default:
-      throw new Error(`Invalid variant: ${active satisfies never}`)
   }
 }
