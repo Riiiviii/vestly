@@ -2,6 +2,7 @@
 
 @theme {
   --font-serif: 'Playfair Display', serif;
+  --font-mono: 'Space Mono', monospace;
 }
 
 :root {
@@ -11,6 +12,7 @@
   --text-primary: white;
   --text-secondary: #5d6862;
   --text-muted: #9eada6;
+  --text-light: #c2d0c9;
 }
 
 * {
@@ -20,7 +22,7 @@
 html,
 body,
 #app {
-  min-height: 100vh;
+  min-height: 100%;
   color: var(--text-primary);
 }
 
