@@ -30,7 +30,7 @@ function Navbar() {
         <span className="h-6 w-px bg-(--border-color)"></span>
         <div className="flex items-center gap-2">
           <span className="inline-block w-2 h-2 rounded-lg bg-(--brand-primary)  shadow-[0_0_12px_rgba(90,220,150,0.7)]"></span>
-          <p className="font-mono text-(--text-secondary)">LIVE</p>
+          <p className="font-mono text-(--text-secondary) text-sm">LIVE</p>
         </div>
       </div>
     </nav>
