@@ -1,4 +1,4 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 @theme {
   --font-serif: 'Playfair Display', serif;
@@ -10,7 +10,7 @@
   --border-color: #26302a;
   --text-primary: white;
   --text-secondary: #5d6862;
-  --text-muted: #9eada6
+  --text-muted: #9eada6;
 }
 
 * {
@@ -20,7 +20,7 @@
 html,
 body,
 #app {
-  min-height: 100%;
+  min-height: 100vh;
   color: var(--text-primary);
 }
 
@@ -28,4 +28,3 @@ body {
   margin: 0;
   background-color: #0b0e0c;
 }
-
