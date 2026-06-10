@@ -8,7 +8,20 @@ export type Quote = {
   changePercent: number
 }
 
+const CACHE_KEY = 'vestly_quotes'
+const CACHE_TTL = 60 * 60 * 1000 // 1 hour
+
+type CacheEntry = { quotes: Quote[]; cachedAt: number }
+
 export async function fetchQuotes(tickers: string[]): Promise<Quote[]> {
+  if (typeof window !== 'undefined') {
+    const raw = sessionStorage.getItem(CACHE_KEY)
+    if (raw) {
+      const entry: CacheEntry = JSON.parse(raw)
+      if (Date.now() - entry.cachedAt < CACHE_TTL) return entry.quotes
+    }
+  }
+
   const results = await Promise.all(
     tickers.map(async (ticker) => {
       const res = await fetch(`${BASE}/quote?symbol=${ticker}&token=${KEY}`)
@@ -21,5 +34,9 @@ export async function fetchQuotes(tickers: string[]): Promise<Quote[]> {
       }
     }),
   )
+
+  if (typeof window !== 'undefined') {
+    sessionStorage.setItem(CACHE_KEY, JSON.stringify({ quotes: results, cachedAt: Date.now() }))
+  }
   return results
 }

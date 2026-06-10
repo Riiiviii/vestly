@@ -1,31 +1,10 @@
-import { useEffect, useState } from 'react'
-import { fetchQuotes } from '#/util/finnhub'
 import type { Quote } from '#/util/finnhub'
 
-const tickers = [
-  'AAPL',
-  'TSLA',
-  'NVDA',
-  'MSFT',
-  'AMZN',
-  'GOOGL',
-  'META',
-  'SPY',
-  'AMD',
-  'NFLX',
-]
+type TickerTapeProps = {
+  quotes: Quote[]
+}
 
-function TickerTape() {
-  const [quotes, setQuotes] = useState<Quote[]>([])
-
-  useEffect(() => {
-    fetchQuotes(tickers)
-      .then(setQuotes)
-      .catch(() => {})
-  }, [])
-
-  if (quotes.length === 0) return null
-
+function TickerTape({ quotes }: TickerTapeProps) {
   const doubled = [...quotes, ...quotes]
 
   return (
@@ -46,12 +25,8 @@ function TickerItem({ quote }: { quote: Quote }) {
       <span className="font-mono font-semibold text-sm tracking-wide text-(--text-primary)">
         {quote.ticker}
       </span>
-      <span className="font-mono text-sm text-(--text-muted)">
-        ${quote.price.toFixed(2)}
-      </span>
-      <span
-        className={`font-mono text-sm font-medium ${positive ? 'text-(--brand-primary)' : 'text-red-400'}`}
-      >
+      <span className="font-mono text-sm text-(--text-muted)">${quote.price.toFixed(2)}</span>
+      <span className={`font-mono text-sm font-medium ${positive ? 'text-(--brand-primary)' : 'text-red-400'}`}>
         {positive ? '+' : ''}
         {quote.changePercent.toFixed(2)}%
       </span>
