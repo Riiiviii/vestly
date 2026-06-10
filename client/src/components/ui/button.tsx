@@ -7,16 +7,12 @@ type ButtonProps = {
   variant?: Variant
 } & ComponentProps<'button'>
 
-function Button({
-  variant = 'primary',
-  className,
-  ...props
-}: ButtonProps) {
+function Button({ variant = 'primary', className, ...props }: ButtonProps) {
   return (
     <button
       {...props}
       className={twMerge(
-        `transition-colors px-4 py-3 rounded-lg cursor-pointer`,
+        `transition-all duration-200 px-4 py-3 rounded-lg cursor-pointer hover:-translate-y-0.5 hover:shadow-[0_8px_20px_6px_rgba(101,226,135,0.1)]`,
         getVariantStyles(variant),
         className,
       )}
@@ -29,7 +25,7 @@ export default Button
 function getVariantStyles(variant: Variant) {
   switch (variant) {
     case 'primary':
-      return ''
+      return 'bg-(--brand-primary) text-black font-semibold px-8 py-4 text-lg rounded-xl'
     case 'none':
       return ''
     default:
