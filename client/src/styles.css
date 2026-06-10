@@ -2,7 +2,8 @@
 
 @theme {
   --font-serif: 'Playfair Display', serif;
-  --font-mono: 'Space Mono', monospace;
+  --font-mono: 'DM Mono', ui-monospace, monospace;
+  --font-sans: 'DM Sans', system-ui, sans-serif;
 }
 
 :root {
@@ -11,8 +12,10 @@
   --border-color: #26302a;
   --text-primary: white;
   --text-secondary: #5d6862;
-  --text-muted: #9eada6;
-  --text-light: #c2d0c9;
+  --text-muted: #69766f;
+  --text-light: #9eada6;
+
+  --input-background: #171e19;
 }
 
 * {
@@ -28,5 +31,8 @@ body,
 
 body {
   margin: 0;
+  height: 100dvh;
   background-color: #0b0e0c;
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
 }
