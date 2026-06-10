@@ -1,14 +1,16 @@
 import Button from '../ui/button'
+import { LuSparkle } from 'react-icons/lu'
+import { useState } from 'react'
 
 const containerStyles = `
   group
   flex justify-center
-  px-7 py-4
+  px-3 py-3
   rounded-2xl
   border
   bg-[var(--input-background)]
   border-[var(--border-color)]
-  shadow-xl/20
+  shadow-xl/30
   transition-[border-color,box-shadow]
   duration-400
   focus-within:border-[#2d6e45]
@@ -16,6 +18,8 @@ const containerStyles = `
 `
 
 function InputTicker() {
+  const [ticker, setTicker] = useState('')
+
   return (
     <section className={containerStyles}>
       <form className="flex items-center gap-5">
@@ -26,10 +30,18 @@ function InputTicker() {
         <input
           type="text"
           placeholder="AAPL"
+          onChange={(e) => setTicker(e.target.value.toUpperCase())}
           className="text-3xl font-medium font-mono tracking-wider outline-none placeholder:text-(--text-muted)"
+          value={ticker}
+          maxLength={5}
         />
 
-        <Button type="submit">Analyse</Button>
+        <Button
+          type="submit"
+          className="flex items-center gap-3 justify-center"
+        >
+          <LuSparkle /> Analyse
+        </Button>
       </form>
     </section>
   )
