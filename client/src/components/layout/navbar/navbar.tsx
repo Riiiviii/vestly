@@ -7,13 +7,13 @@ type NavLinks = {
 }
 
 const navLinks: NavLinks[] = [
-  { to: '/', label: 'Analyze' },
+  { to: '/', label: 'Analyse' },
   { to: '/about', label: 'About' },
 ]
 
 function Navbar() {
   return (
-    <nav className="flex justify-between items-center py-4 px-10 border-b border-(--border-color) w-full">
+    <nav className="fixed top-0 z-50 flex justify-between items-center py-4 px-10 border-b border-(--border-color) w-full bg-[rgba(11,14,12,0.75)] backdrop-blur-md">
       <Link to="/" className="flex items-center gap-3">
         <span className="inline-block w-2.5 h-2.5 rounded-xs bg-(--brand-primary) rotate-45 shadow-[0_0_12px_rgba(90,220,150,0.7)]"></span>
 
