@@ -1,6 +1,5 @@
 import Button from '../ui/button'
 import { LuSparkle } from 'react-icons/lu'
-import { useState } from 'react'
 
 const containerStyles = `
   group
@@ -16,10 +15,12 @@ const containerStyles = `
   focus-within:border-[#2d6e45]
   focus-within:shadow-[0_20px_70px_20px_rgba(15,60,28,0.3)]
 `
+type TickerInputProps = {
+  ticker: string
+  setTicker: (val: string) => void
+}
 
-function InputTicker() {
-  const [ticker, setTicker] = useState('')
-
+function TickerInput({ ticker, setTicker }: TickerInputProps) {
   return (
     <section className={containerStyles}>
       <form className="flex items-center gap-5">
@@ -47,4 +48,4 @@ function InputTicker() {
   )
 }
 
-export default InputTicker
+export default TickerInput
