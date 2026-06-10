@@ -1,7 +1,7 @@
 import type { ComponentProps } from 'react'
 import { twMerge } from 'tailwind-merge'
 
-type Variant = 'primary' | 'none'
+type Variant = 'primary' | 'secondary' | 'none'
 
 type ButtonProps = {
   variant?: Variant
@@ -26,6 +26,8 @@ function getVariantStyles(variant: Variant) {
   switch (variant) {
     case 'primary':
       return 'bg-(--brand-primary) text-black font-semibold px-8 py-4 text-lg rounded-xl'
+    case 'secondary':
+      return 'px-3 py-1.5  font-mono font-medium text-(--text-light) border border-(--border-color) bg-(--input-background) hover:border-[#2d6e45] hover:text-(--brand-primary) transition-[border-color,color] duration-200'
     case 'none':
       return ''
     default:
