@@ -8,9 +8,18 @@ import { useState } from 'react'
 
 const TAPE_TICKERS = ['AAPL', 'TSLA', 'NVDA', 'MSFT', 'AMZN', 'GOOGL', 'META', 'SPY', 'AMD', 'NFLX']
 
+function HomeError() {
+  return (
+    <main className="flex flex-col items-center justify-center flex-1 gap-4">
+      <p className="text-(--text-muted) font-mono text-sm">Failed to load market data.</p>
+    </main>
+  )
+}
+
 export const Route = createFileRoute('/')({
   loader: () => fetchQuotes(TAPE_TICKERS),
   component: Home,
+  errorComponent: HomeError,
 })
 
 function Home() {

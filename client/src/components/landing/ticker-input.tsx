@@ -38,7 +38,7 @@ function TickerInput({ ticker, setTicker }: TickerInputProps) {
         />
 
         <Button
-          type="submit"
+          type="button"
           className="flex items-center gap-3 justify-center"
         >
           <LuSparkle /> Analyse

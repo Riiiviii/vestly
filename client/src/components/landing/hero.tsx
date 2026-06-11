@@ -8,7 +8,7 @@ function Hero() {
       <h1 className="font-serif font-bold text-[clamp(64px,7.2vw,100px)] leading-[1.02] tracking-[-0.035em] mb-[0.3em] mt-4">
         Every stock, <br />
         <em className="text-(--brand-primary) font-semibold not-italic">
-          <i>decoded.</i>
+          decoded.
         </em>
       </h1>
 

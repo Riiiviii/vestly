@@ -1,4 +1,5 @@
 import logging
+import os
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pipeline import analyze_ticker
@@ -8,9 +9,10 @@ logger = logging.getLogger(__name__)
 
 app = FastAPI()
 
+origins = os.getenv("ALLOWED_ORIGINS", "http://localhost:3000").split(",")
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"],
+    allow_origins=origins,
     allow_methods=["GET"],
 )
 
@@ -21,13 +23,13 @@ def read_root():
 
 
 @app.get("/quotes")
-def get_quotes(tickers: str) -> list[Quote]:
+async def get_quotes(tickers: str) -> list[Quote]:
     symbols = [s.strip().upper() for s in tickers.split(",")]
     try:
-        return fetch_quotes(symbols)
+        return await fetch_quotes(symbols)
     except Exception as e:
-        logger.exception("Failed to fetch quotes: %s", e)
-        raise HTTPException(status_code=500, detail="Failed to fetch quotes")
+        logger.exception("Failed to fetch quotes")
+        raise HTTPException(status_code=500, detail="Failed to fetch quotes") from e
 
 
 @app.get("/analyze")

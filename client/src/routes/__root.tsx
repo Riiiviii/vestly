@@ -46,7 +46,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
       <head>
         <HeadContent />
       </head>
-      <body className="flex flex-col items-center">
+      <body className="flex flex-col items-center pt-16">
         <Navbar />
         {children}
         <Scripts />

@@ -14,18 +14,32 @@ type CacheEntry = { quotes: Quote[]; cachedAt: number }
 
 export async function fetchQuotes(tickers: string[]): Promise<Quote[]> {
   if (typeof window !== 'undefined') {
-    const raw = localStorage.getItem(CACHE_KEY)
-    if (raw) {
-      const entry: CacheEntry = JSON.parse(raw)
-      if (Date.now() - entry.cachedAt < CACHE_TTL) return entry.quotes
+    try {
+      const raw = localStorage.getItem(CACHE_KEY)
+      if (raw) {
+        const entry: CacheEntry = JSON.parse(raw)
+        if (Date.now() - entry.cachedAt < CACHE_TTL) return entry.quotes
+      }
+    } catch {
+      // cache corrupted or unavailable
     }
   }
 
-  const res = await fetch(`${API_URL}/quotes?tickers=${tickers.join(',')}`)
-  const results: Quote[] = await res.json()
+  let results: Quote[]
+  try {
+    const res = await fetch(`${API_URL}/quotes?tickers=${tickers.join(',')}`)
+    if (!res.ok) throw new Error(`HTTP ${res.status}`)
+    results = await res.json()
+  } catch {
+    return []
+  }
 
   if (typeof window !== 'undefined') {
-    localStorage.setItem(CACHE_KEY, JSON.stringify({ quotes: results, cachedAt: Date.now() }))
+    try {
+      localStorage.setItem(CACHE_KEY, JSON.stringify({ quotes: results, cachedAt: Date.now() }))
+    } catch {
+      // quota exceeded or storage unavailable
+    }
   }
   return results
 }
