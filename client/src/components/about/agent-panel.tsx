@@ -49,7 +49,7 @@ export default function AgentPanel() {
           </p>
         </div>
 
-        <div className="flex items-stretch">
+        <div className="flex flex-col md:flex-row md:items-stretch">
           <div className="flex-1 flex flex-col">
             {agents.map((agent) => (
               <div
@@ -67,7 +67,7 @@ export default function AgentPanel() {
             <div className="border-t border-(--border-color)" />
           </div>
 
-          <div className="flex items-center mx-3">
+          <div className="hidden md:flex items-center mx-3">
             <div className="self-stretch w-4 border-r border-t border-b border-(--border-color) rounded-r-lg" />
             <PiArrowRight className="w-4 h-4 text-(--text-muted) shrink-0" />
           </div>

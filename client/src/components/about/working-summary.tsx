@@ -44,7 +44,7 @@ export default function WorkingSummary() {
           </h2>
         </div>
 
-        <div className="flex">
+        <div className="flex flex-col md:flex-row">
           {workingSteps.map((step, index) => (
             <div
               key={step.step}
@@ -52,10 +52,10 @@ export default function WorkingSummary() {
             >
               <div className="relative w-full h-10 flex items-center justify-center">
                 {index > 0 && (
-                  <div className="absolute right-1/2 left-0 top-1/2 h-px bg-(--border-color)" />
+                  <div className="hidden md:block absolute right-1/2 left-0 top-1/2 h-px bg-(--border-color)" />
                 )}
                 {index < workingSteps.length - 1 && (
-                  <div className="absolute left-1/2 right-0 top-1/2 h-px bg-(--border-color)" />
+                  <div className="hidden md:block absolute left-1/2 right-0 top-1/2 h-px bg-(--border-color)" />
                 )}
                 <div className="relative z-10 w-10 h-10 rounded-full border border-(--border-color) bg-[#0b0e0c] flex items-center justify-center">
                   <span className="font-mono text-sm font-bold text-(--brand-primary)">

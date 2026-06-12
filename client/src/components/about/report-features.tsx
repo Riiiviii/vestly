@@ -38,7 +38,7 @@ const reportFeatures: ReportFeature[] = [
 
 export default function ReportFeatures() {
   return (
-    <section className="py-20 bg-[#0f1310] bt-">
+    <section className="py-20 bg-[#0f1310] border-t border-(--border-color)">
       <div className="mx-auto max-w-3xl px-6">
         <div className="text-center mb-16">
           <p className="font-mono text-xs tracking-widest text-(--brand-primary) uppercase mb-4">
