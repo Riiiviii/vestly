@@ -24,7 +24,7 @@ class JudgeAgent:
             instructions=self.instruction,
             model=self.MODEL,
             output_type=self.output_model,
-            model_settings=ModelSettings(temperature=0),
+            model_settings=ModelSettings(temperature=0, max_tokens=8192),
         )
 
     async def run(self, agent_outputs: PanelOutputs) -> JudgeOutput:
