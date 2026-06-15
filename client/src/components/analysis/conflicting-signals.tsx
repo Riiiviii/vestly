@@ -1,4 +1,4 @@
-import type { AnalysisResult } from '#/util/analyze'
+import type { AnalysisResult } from '#/util/analyse'
 
 type Props = {
   signals: AnalysisResult['conflicting_signals']

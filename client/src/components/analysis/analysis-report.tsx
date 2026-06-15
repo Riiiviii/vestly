@@ -1,5 +1,5 @@
 import Button from '#/components/ui/button'
-import type { AnalysisResult } from '#/util/analyze'
+import type { AnalysisResult } from '#/util/analyse'
 import { PiArrowRight } from 'react-icons/pi'
 import AgentEvidence from './agent-evidence'
 import ConflictingSignals from './conflicting-signals'

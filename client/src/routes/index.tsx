@@ -4,8 +4,8 @@ import Hero from '#/components/landing/hero'
 import SampleTickers from '#/components/landing/sample-tickers'
 import TickerInput from '#/components/landing/ticker-input'
 import Button from '#/components/ui/button'
-import type { AnalysisResult } from '#/util/analyze'
-import { analyzeStock } from '#/util/analyze'
+import type { AnalysisResult } from '#/util/analyse'
+import { analyseStock } from '#/util/analyse'
 import { createFileRoute } from '@tanstack/react-router'
 import { useState } from 'react'
 
@@ -28,7 +28,7 @@ function Home() {
     if (!t) return
     setAnalysis({ status: 'loading', ticker: t })
     try {
-      const result = await analyzeStock(t)
+      const result = await analyseStock(t)
       setAnalysis({ status: 'success', ticker: t, result })
     } catch (err) {
       setAnalysis({
