@@ -72,7 +72,7 @@ export default function AgentPanel() {
             <PiArrowRight className="w-4 h-4 text-(--text-muted) shrink-0" />
           </div>
 
-          <div className="w-56 bg-(--brand-secondary) border border-(--border-color) rounded-xl p-6 flex flex-col justify-center shrink-0">
+          <div className="w-full md:w-56 mt-6 md:mt-0 bg-(--brand-secondary) border border-(--border-color) rounded-xl p-6 flex flex-col justify-center shrink-0">
             <p className="font-mono text-xs tracking-widest text-(--brand-primary) uppercase mb-2">
               Synthesis
             </p>

@@ -1,5 +1,5 @@
-import { Link } from '@tanstack/react-router'
 import NavLink from './navlink'
+import Logo from '#/components/ui/logo'
 
 type NavLinks = {
   to: string
@@ -14,11 +14,7 @@ const navLinks: NavLinks[] = [
 function Navbar() {
   return (
     <nav className="fixed top-0 z-50 flex justify-between items-center py-4 px-10 border-b border-(--border-color) w-full bg-[rgba(11,14,12,0.75)] backdrop-blur-md">
-      <Link to="/" className="flex items-center gap-3">
-        <span className="inline-block w-2.5 h-2.5 rounded-xs bg-(--brand-primary) rotate-45 shadow-[0_0_12px_rgba(90,220,150,0.7)]"></span>
-
-        <h1 className="font-serif text-[24px] font-bold">V E S T L Y</h1>
-      </Link>
+      <Logo />
       <div className="flex items-center gap-5">
         <div className="flex gap-2">
           {navLinks.map((link) => (
