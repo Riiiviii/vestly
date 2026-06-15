@@ -18,12 +18,13 @@ const containerStyles = `
 type TickerInputProps = {
   ticker: string
   setTicker: (val: string) => void
+  onAnalyse: () => void
 }
 
-function TickerInput({ ticker, setTicker }: TickerInputProps) {
+function TickerInput({ ticker, setTicker, onAnalyse }: TickerInputProps) {
   return (
     <section className={containerStyles}>
-      <form className="flex items-center gap-5">
+      <form className="flex items-center gap-5" onSubmit={(e) => { e.preventDefault(); onAnalyse() }}>
         <span className="text-2xl font-medium text-(--text-muted) transition-colors duration-400 group-focus-within:text-(--brand-primary)">
           {`>`}
         </span>
@@ -38,8 +39,9 @@ function TickerInput({ ticker, setTicker }: TickerInputProps) {
         />
 
         <Button
-          type="button"
-          className="flex items-center gap-3 justify-center"
+          type="submit"
+          disabled={!ticker.trim()}
+          className="flex items-center gap-3 justify-center disabled:opacity-40 disabled:cursor-not-allowed"
         >
           <LuSparkle /> Analyse
         </Button>
