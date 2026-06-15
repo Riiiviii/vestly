@@ -3,7 +3,7 @@ import { HeadContent, Outlet, Scripts, createRootRoute } from '@tanstack/react-r
 import appCss from '../styles.css?url'
 import Navbar from '#/components/layout/navbar/navbar.tsx'
 import TickerTape from '#/components/ui/ticker-tape'
-import { fetchQuotes } from '#/util/finnhub'
+import { fetchQuotes, type Quote } from '#/util/finnhub'
 
 const TAPE_TICKERS = [
   'AAPL',
@@ -19,7 +19,11 @@ const TAPE_TICKERS = [
 ]
 
 export const Route = createRootRoute({
-  loader: () => fetchQuotes(TAPE_TICKERS),
+  loader: () =>
+    Promise.race([
+      fetchQuotes(TAPE_TICKERS),
+      new Promise<Quote[]>((resolve) => setTimeout(() => resolve([]), 5000)),
+    ]),
   head: () => ({
     meta: [
       {
