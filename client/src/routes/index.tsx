@@ -6,8 +6,10 @@ import TickerInput from '#/components/landing/ticker-input'
 import Button from '#/components/ui/button'
 import type { AnalysisResult } from '#/util/analyse'
 import { analyseStock } from '#/util/analyse'
+import { container, item } from '#/util/motion'
 import { createFileRoute } from '@tanstack/react-router'
 import { useState } from 'react'
+import { motion, useReducedMotion } from 'motion/react'
 
 export const Route = createFileRoute('/')({
   component: Home,
@@ -22,6 +24,7 @@ type AnalysisState =
 function Home() {
   const [ticker, setTicker] = useState('')
   const [analysis, setAnalysis] = useState<AnalysisState>({ status: 'idle' })
+  const reduced = useReducedMotion()
 
   async function handleAnalyse() {
     const t = ticker.trim().toUpperCase()
@@ -81,16 +84,31 @@ function Home() {
 
   return (
     <main className="relative flex flex-col items-center w-full flex-1">
-      <div className="flex flex-col items-center gap-12 flex-1 justify-center">
+      <motion.div
+        className="flex flex-col items-center gap-12 flex-1 justify-center"
+        variants={container}
+        initial={reduced ? false : 'hidden'}
+        animate="show"
+      >
         <div className="relative">
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-(--brand-primary) opacity-[0.18] blur-[180px] rounded-full -z-10" />
+          <motion.div
+            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-(--brand-primary) blur-[180px] rounded-full -z-10"
+            animate={reduced ? {} : { opacity: [0.18, 0.32, 0.18], scale: [1, 1.06, 1] }}
+            transition={{ duration: 7, repeat: Infinity, ease: 'easeInOut' }}
+          />
           <Hero />
         </div>
-        <div className="flex flex-col items-center gap-4">
-          <TickerInput ticker={ticker} setTicker={setTicker} onAnalyse={handleAnalyse} />
+        <motion.div variants={item} className="flex flex-col items-center gap-4">
+          <TickerInput
+            ticker={ticker}
+            setTicker={setTicker}
+            onAnalyse={handleAnalyse}
+          />
+        </motion.div>
+        <motion.div variants={item}>
           <SampleTickers setTicker={setTicker} />
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
     </main>
   )
 }
