@@ -1,6 +1,7 @@
 import AgentPanel from '#/components/about/agent-panel'
 import ReportFeatures from '#/components/about/report-features'
 import WorkingSummary from '#/components/about/working-summary'
+import Footer from '#/components/layout/footer/footer'
 import { createFileRoute } from '@tanstack/react-router'
 
 export const Route = createFileRoute('/about')({ component: About })
@@ -31,6 +32,7 @@ function About() {
       <WorkingSummary />
       <AgentPanel />
       <ReportFeatures />
+      <Footer />
     </main>
   )
 }
