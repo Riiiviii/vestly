@@ -1,30 +1,15 @@
 import Hero from '#/components/landing/hero'
 import SampleTickers from '#/components/landing/sample-tickers'
 import TickerInput from '#/components/landing/ticker-input'
-import TickerTape from '#/components/landing/ticker-tape'
-import { fetchQuotes } from '#/util/finnhub'
 import { createFileRoute } from '@tanstack/react-router'
 import { useState } from 'react'
 
-const TAPE_TICKERS = ['AAPL', 'TSLA', 'NVDA', 'MSFT', 'AMZN', 'GOOGL', 'META', 'SPY', 'AMD', 'NFLX']
-
-function HomeError() {
-  return (
-    <main className="flex flex-col items-center justify-center flex-1 gap-4">
-      <p className="text-(--text-muted) font-mono text-sm">Failed to load market data.</p>
-    </main>
-  )
-}
-
 export const Route = createFileRoute('/')({
-  loader: () => fetchQuotes(TAPE_TICKERS),
   component: Home,
-  errorComponent: HomeError,
 })
 
 function Home() {
   const [ticker, setTicker] = useState('')
-  const quotes = Route.useLoaderData()
 
   return (
     <main className="relative flex flex-col items-center w-full flex-1">
@@ -38,7 +23,6 @@ function Home() {
           <SampleTickers setTicker={setTicker} />
         </div>
       </div>
-      <TickerTape quotes={quotes} />
     </main>
   )
 }
