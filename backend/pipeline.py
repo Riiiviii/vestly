@@ -20,9 +20,9 @@ from schemas.risk_agent import RiskOutput
 from schemas.competition_agent import CompetitionOutput
 from schemas.judge_agent import PanelOutputs, JudgeOutput
 
-PANEL_TIMEOUT = 60
+PANEL_TIMEOUT = 120
 COMPETITION_TIMEOUT = 120
-JUDGE_TIMEOUT = 60
+JUDGE_TIMEOUT = 120
 
 
 async def _prepare_research_pack(ticker: str) -> ResearchPack:

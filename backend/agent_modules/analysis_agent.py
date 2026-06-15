@@ -1,7 +1,7 @@
 from schemas.research_pack import ResearchPack
 from typing import Final
 from pathlib import Path
-from agents import Agent, Runner, trace
+from agents import Agent, ModelSettings, Runner, trace
 from dotenv import load_dotenv
 from typing import Generic, TypeVar
 from pydantic import BaseModel
@@ -31,6 +31,7 @@ class AnalysisAgent(Generic[TOutput]):
             instructions=self.instruction,
             model=self.MODEL,
             output_type=self.output_model,
+            model_settings=ModelSettings(max_tokens=4096),
         )
 
     async def run(self, research_pack: ResearchPack) -> TOutput:
