@@ -1,7 +1,7 @@
 from schemas.research_pack import ResearchPack
 from typing import Final
 from pathlib import Path
-from agents import Agent, Runner, trace
+from agents import Agent, ModelSettings, Runner, trace
 from dotenv import load_dotenv
 from schemas.competition_agent import CompetitionOutput
 from agents.mcp import MCPServerStdio
@@ -38,6 +38,7 @@ class CompetitionAgent:
             model=self.MODEL,
             output_type=self.output_model,
             mcp_servers=[self._mcp_server],
+            model_settings=ModelSettings(max_tokens=4096),
         )
 
     async def run(self, research_pack: ResearchPack) -> CompetitionOutput:
