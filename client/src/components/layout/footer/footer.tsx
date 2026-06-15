@@ -5,7 +5,7 @@ function Footer() {
     <footer className="border-t border-(--border-color)">
       <div className="px-10 py-10">
         <div className="flex justify-between gap-16 mb-10">
-          <div className="w-120">
+          <div className="w-84">
             <Logo />
             <p className="text-base text-(--text-secondary) leading-relaxed mt-4">
               AI-powered stock analysis for everyday investors. Clear, honest,
