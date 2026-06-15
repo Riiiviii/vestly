@@ -1,9 +1,25 @@
-import { HeadContent, Scripts, createRootRoute } from '@tanstack/react-router'
+import { HeadContent, Outlet, Scripts, createRootRoute } from '@tanstack/react-router'
 
 import appCss from '../styles.css?url'
 import Navbar from '#/components/layout/navbar/navbar.tsx'
+import TickerTape from '#/components/ui/ticker-tape'
+import { fetchQuotes } from '#/util/finnhub'
+
+const TAPE_TICKERS = [
+  'AAPL',
+  'TSLA',
+  'NVDA',
+  'MSFT',
+  'AMZN',
+  'GOOGL',
+  'META',
+  'SPY',
+  'AMD',
+  'NFLX',
+]
 
 export const Route = createRootRoute({
+  loader: () => fetchQuotes(TAPE_TICKERS),
   head: () => ({
     meta: [
       {
@@ -37,8 +53,21 @@ export const Route = createRootRoute({
       },
     ],
   }),
+  component: RootLayout,
   shellComponent: RootDocument,
 })
+
+function RootLayout() {
+  const quotes = Route.useLoaderData()
+  return (
+    <>
+      <Outlet />
+      <div className="fixed bottom-0 w-full z-50 bg-[rgba(11,14,12,0.9)] backdrop-blur-md">
+        <TickerTape quotes={quotes} />
+      </div>
+    </>
+  )
+}
 
 function RootDocument({ children }: { children: React.ReactNode }) {
   return (
@@ -46,7 +75,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
       <head>
         <HeadContent />
       </head>
-      <body className="flex flex-col items-center pt-16">
+      <body className="flex flex-col items-center pt-16 pb-14">
         <Navbar />
         {children}
         <Scripts />

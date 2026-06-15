@@ -25,8 +25,12 @@ function TickerItem({ quote }: { quote: Quote }) {
       <span className="font-mono font-semibold text-sm tracking-wide text-(--text-primary)">
         {quote.ticker}
       </span>
-      <span className="font-mono text-sm text-(--text-muted)">${quote.price.toFixed(2)}</span>
-      <span className={`font-mono text-sm font-medium ${positive ? 'text-(--brand-primary)' : 'text-red-400'}`}>
+      <span className="font-mono text-sm text-(--text-muted)">
+        ${quote.price.toFixed(2)}
+      </span>
+      <span
+        className={`font-mono text-sm font-medium ${positive ? 'text-(--brand-primary)' : 'text-red-400'}`}
+      >
         {positive ? '+' : ''}
         {quote.changePercent.toFixed(2)}%
       </span>
