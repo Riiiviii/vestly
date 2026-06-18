@@ -23,9 +23,9 @@ export default function ConflictingSignals({ signals }: Props) {
         {signals.map((signal, i) => (
           <div
             key={i}
-            className="flex gap-6 py-5 border-t border-(--border-color) first:border-0 first:pt-0"
+            className="flex flex-col sm:flex-row gap-2.5 sm:gap-6 py-5 border-t border-(--border-color) first:border-0 first:pt-0"
           >
-            <div className="flex gap-1.5 shrink-0 pt-0.5">
+            <div className="flex flex-wrap gap-1.5 shrink-0 sm:pt-0.5">
               {signal.agents.map((a) => (
                 <span
                   key={a}
