@@ -26,7 +26,7 @@ function TickerInput({ ticker, setTicker, onAnalyse }: TickerInputProps) {
   return (
     <section className={containerStyles}>
       <form className="flex items-center gap-3 sm:gap-5 w-full" onSubmit={(e) => { e.preventDefault(); onAnalyse() }}>
-        <span className="shrink-0 text-lg sm:text-2xl font-medium text-(--text-muted) transition-colors duration-400 group-focus-within:text-(--brand-primary)">
+        <span className="shrink-0 text-sm sm:text-lg font-medium text-(--text-muted) transition-colors duration-400 group-focus-within:text-(--brand-primary)">
           {`>`}
         </span>
 
@@ -34,7 +34,7 @@ function TickerInput({ ticker, setTicker, onAnalyse }: TickerInputProps) {
           type="text"
           placeholder="AAPL"
           onChange={(e) => setTicker(e.target.value.toUpperCase())}
-          className="w-full min-w-0 flex-1 text-xl sm:text-3xl font-medium font-mono tracking-wider outline-none placeholder:text-(--text-muted)"
+          className="w-full min-w-0 flex-1 text-base sm:text-xl font-medium font-mono tracking-wider outline-none placeholder:text-(--text-muted)"
           value={ticker}
           maxLength={5}
         />
@@ -42,7 +42,7 @@ function TickerInput({ ticker, setTicker, onAnalyse }: TickerInputProps) {
         <Button
           type="submit"
           disabled={!ticker.trim()}
-          className="flex items-center gap-2 sm:gap-3 justify-center shrink-0 px-4 sm:px-8 py-2.5 sm:py-4 text-sm sm:text-lg disabled:opacity-40 disabled:cursor-not-allowed"
+          className="flex items-center gap-2 sm:gap-3 justify-center shrink-0 px-3 sm:px-5 py-2 sm:py-2.5 text-xs sm:text-sm disabled:opacity-40 disabled:cursor-not-allowed"
         >
           <LuSparkle /> Analyse
         </Button>

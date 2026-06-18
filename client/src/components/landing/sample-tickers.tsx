@@ -9,7 +9,7 @@ type SampleTickersProps = {
 function SampleTickers({ setTicker }: SampleTickersProps) {
   return (
     <div className="flex flex-col items-center gap-3">
-      <span className=" tracking-widest uppercase text-(--text-muted)">
+      <span className="text-xs tracking-widest uppercase text-(--text-muted)">
         Try
       </span>
       <div className="flex flex-wrap items-center justify-center gap-2">
@@ -18,6 +18,7 @@ function SampleTickers({ setTicker }: SampleTickersProps) {
             key={t}
             type="button"
             variant="secondary"
+            className="text-sm"
             onClick={() => setTicker(t)}
           >
             {t}

@@ -13,7 +13,7 @@ function Hero() {
 
       <motion.h1
         variants={item}
-        className="font-serif font-bold text-[clamp(36px,6vw,64px)] leading-[1.02] tracking-[-0.035em] mb-[0.3em] mt-4"
+        className="font-serif font-bold text-[clamp(42px,7vw,80px)] leading-[1.04] tracking-[-0.035em] mb-[0.3em] mt-4"
       >
         Any stock, <br />
         <em className="text-(--brand-primary) font-semibold not-italic">
@@ -23,7 +23,7 @@ function Hero() {
 
       <motion.p
         variants={item}
-        className="text-[clamp(13px,3vw,19px)] max-w-130 text-(--text-light) leading-[1.65]"
+        className="text-[clamp(13px,2.4vw,16px)] max-w-130 text-(--text-light) leading-[1.65]"
       >
         Type a ticker. A panel of AI agents reads the financials, news and risk
         — and hands back one clear verdict.
