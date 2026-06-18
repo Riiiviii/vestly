@@ -31,7 +31,11 @@ class CompetitionAgent:
                         / "competition_mcp.py"
                     )
                 ],
-                "env": {**os.environ},
+                "env": {
+                    k: v
+                    for k, v in os.environ.items()
+                    if k in {"PATH", "HOME", "FINNHUB_API_KEY"}
+                },
             },
             client_session_timeout_seconds=30,
         )
