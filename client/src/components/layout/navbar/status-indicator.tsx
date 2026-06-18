@@ -3,16 +3,23 @@ import { motion, useReducedMotion } from 'motion/react'
 import { checkBackendStatus } from '#/util/health'
 
 const statusStyles = {
-  checking: { color: 'var(--text-muted)', glow: 'none', label: '' },
+  checking: {
+    color: 'var(--text-muted)',
+    glow: 'none',
+    label: '',
+    srLabel: 'Checking backend status',
+  },
   live: {
     color: 'var(--brand-primary)',
     glow: '0 0 12px rgba(101,226,135,0.7)',
     label: 'LIVE',
+    srLabel: 'Backend online',
   },
   offline: {
     color: '#f87171',
     glow: '0 0 12px rgba(248,113,113,0.7)',
     label: 'OFFLINE',
+    srLabel: 'Backend offline',
   },
 } as const
 
@@ -34,8 +41,10 @@ function StatusIndicator() {
   const status = statusStyles[state]
 
   return (
-    <div className="flex items-center gap-2">
+    <div role="status" aria-live="polite" className="flex items-center gap-2">
+      <span className="sr-only">{status.srLabel}</span>
       <motion.span
+        aria-hidden="true"
         className="inline-block w-2 h-2 rounded-full"
         style={{ backgroundColor: status.color, boxShadow: status.glow }}
         animate={
@@ -44,7 +53,10 @@ function StatusIndicator() {
         transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
       />
       {status.label && (
-        <p className="hidden sm:block font-mono text-(--text-secondary) text-sm">
+        <p
+          aria-hidden="true"
+          className="hidden sm:block font-mono text-(--text-secondary) text-sm"
+        >
           {status.label}
         </p>
       )}
