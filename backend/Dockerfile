@@ -1,6 +1,6 @@
 FROM python:3.12-slim AS builder
 
-COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /usr/local/bin/
+COPY --from=ghcr.io/astral-sh/uv:0.11.19 /uv /uvx /usr/local/bin/
 
 WORKDIR /app
 COPY pyproject.toml uv.lock ./
@@ -14,4 +14,8 @@ COPY . .
 
 ENV PATH="/app/.venv/bin:$PATH"
 EXPOSE 8000
+
+RUN useradd --create-home --uid 1000 appuser
+USER appuser
+
 CMD ["fastapi", "run", "main.py", "--port", "8000"]
