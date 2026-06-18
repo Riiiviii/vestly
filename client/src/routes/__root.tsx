@@ -34,10 +34,15 @@ export const Route = createRootRoute({
         content: 'width=device-width, initial-scale=1',
       },
       {
-        title: 'TanStack Start Starter',
+        title: 'Vestly',
       },
     ],
     links: [
+      {
+        rel: 'icon',
+        href: '/favicon.svg',
+        type: 'image/svg+xml',
+      },
       {
         rel: 'preconnect',
         href: 'https://fonts.googleapis.com',
@@ -66,9 +71,11 @@ function RootLayout() {
   return (
     <>
       <Outlet />
-      <div className="fixed bottom-0 w-full z-50 bg-[rgba(11,14,12,0.9)] backdrop-blur-md">
-        <TickerTape quotes={quotes} />
-      </div>
+      {quotes.length > 0 && (
+        <div className="fixed bottom-0 w-full z-50 bg-[rgba(11,14,12,0.9)] backdrop-blur-md">
+          <TickerTape quotes={quotes} />
+        </div>
+      )}
     </>
   )
 }

@@ -69,7 +69,7 @@ function Home() {
 
   if (analysis.status === 'error') {
     return (
-      <main className="relative flex flex-col items-center w-full flex-1 justify-center gap-6">
+      <main className="relative flex flex-col items-center justify-center w-full flex-1 gap-6 px-6 text-center">
         <p className="font-mono text-sm text-(--text-muted)">
           Failed to analyse{' '}
           <span className="text-(--text-primary)">{analysis.ticker}</span>.{' '}
@@ -93,7 +93,8 @@ function Home() {
         <div className="relative">
           <motion.div
             className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-(--brand-primary) blur-[180px] rounded-full -z-10"
-            animate={reduced ? {} : { opacity: [0.18, 0.32, 0.18], scale: [1, 1.06, 1] }}
+            initial={{ opacity: 0.12 }}
+            animate={reduced ? {} : { opacity: [0.12, 0.2, 0.12], scale: [1, 1.06, 1] }}
             transition={{ duration: 7, repeat: Infinity, ease: 'easeInOut' }}
           />
           <Hero />

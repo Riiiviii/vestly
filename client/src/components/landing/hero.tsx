@@ -3,17 +3,17 @@ import { motion } from 'motion/react'
 
 function Hero() {
   return (
-    <section className="flex flex-col gap-4 justify-center items-center min-h-max text-center">
+    <section className="flex flex-col gap-4 justify-center items-center min-h-max text-center px-6">
       <motion.p
         variants={item}
-        className="flex items-center gap-2.25 font-mono text-sm text-(--text-muted) tracking-[0.22em] uppercase"
+        className="flex items-center gap-2.25 font-mono text-xs sm:text-sm text-(--text-muted) tracking-[0.16em] sm:tracking-[0.22em] uppercase"
       >
         Stock analysis simplified
       </motion.p>
 
       <motion.h1
         variants={item}
-        className="font-serif font-bold text-[clamp(64px,7.2vw,100px)] leading-[1.02] tracking-[-0.035em] mb-[0.3em] mt-4"
+        className="font-serif font-bold text-[clamp(46px,8vw,100px)] leading-[1.02] tracking-[-0.035em] mb-[0.3em] mt-4"
       >
         Any stock, <br />
         <em className="text-(--brand-primary) font-semibold not-italic">
@@ -23,7 +23,7 @@ function Hero() {
 
       <motion.p
         variants={item}
-        className="text-[clamp(10px,3.6vw,20px)] max-w-130 text-(--text-light) leading-[1.7]"
+        className="text-[clamp(13px,3vw,19px)] max-w-130 text-(--text-light) leading-[1.65]"
       >
         Type a ticker. A panel of AI agents reads the financials, news and risk
         — and hands back one clear verdict.
