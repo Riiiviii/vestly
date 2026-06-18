@@ -1,4 +1,4 @@
-app = 'vestly-api'
+app = 'vestly-backend'
 primary_region = 'syd'
 
 [build]
