@@ -12,7 +12,7 @@ function SampleTickers({ setTicker }: SampleTickersProps) {
       <span className=" tracking-widest uppercase text-(--text-muted)">
         Try
       </span>
-      <div className="flex items-center gap-2">
+      <div className="flex flex-wrap items-center justify-center gap-2">
         {tickers.map((t) => (
           <Button
             key={t}

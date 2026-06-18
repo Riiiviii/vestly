@@ -1,4 +1,7 @@
-const API_URL = import.meta.env.VITE_API_URL ?? 'http://localhost:8000'
+const API_URL = (import.meta.env.VITE_API_URL ?? 'http://localhost:8000').replace(
+  /\/+$/,
+  '',
+)
 
 export type TimeHorizon = 'short-term' | 'medium-term' | 'long-term'
 export type Recommendation =
