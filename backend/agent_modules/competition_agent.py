@@ -1,3 +1,4 @@
+import os
 from schemas.research_pack import ResearchPack
 from typing import Final
 from pathlib import Path
@@ -30,7 +31,9 @@ class CompetitionAgent:
                         / "competition_mcp.py"
                     )
                 ],
-            }
+                "env": {**os.environ},
+            },
+            client_session_timeout_seconds=30,
         )
         self._agent = Agent(
             name=f"{self.name}-analysis-agent",
