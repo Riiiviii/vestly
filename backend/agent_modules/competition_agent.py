@@ -1,3 +1,4 @@
+import os
 from schemas.research_pack import ResearchPack
 from typing import Final
 from pathlib import Path
@@ -30,7 +31,13 @@ class CompetitionAgent:
                         / "competition_mcp.py"
                     )
                 ],
-            }
+                "env": {
+                    k: v
+                    for k, v in os.environ.items()
+                    if k in {"PATH", "HOME", "FINNHUB_API_KEY"}
+                },
+            },
+            client_session_timeout_seconds=30,
         )
         self._agent = Agent(
             name=f"{self.name}-analysis-agent",

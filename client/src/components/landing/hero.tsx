@@ -13,7 +13,7 @@ function Hero() {
 
       <motion.h1
         variants={item}
-        className="font-serif font-bold text-[clamp(46px,8vw,100px)] leading-[1.02] tracking-[-0.035em] mb-[0.3em] mt-4"
+        className="font-serif font-bold text-[clamp(36px,6vw,64px)] leading-[1.02] tracking-[-0.035em] mb-[0.3em] mt-4"
       >
         Any stock, <br />
         <em className="text-(--brand-primary) font-semibold not-italic">
