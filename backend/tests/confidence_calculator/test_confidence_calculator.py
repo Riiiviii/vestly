@@ -139,7 +139,3 @@ def test_calculate_information_deductions_missing_fields(missing_fields_company_
     )
     assert deduction == MISSING_COMPANY_FIELDS_DEDUCTION
     assert missing_fields == ["sector", "industry", "market_cap"]
-
-
-def test_ci_blocking():
-    assert False
