@@ -71,3 +71,4 @@ def valid_mcp_data(
         price_history=valid_company_price_history,
         analyst_recommendations=[],
     )
+
