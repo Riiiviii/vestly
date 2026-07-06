@@ -19,7 +19,9 @@ class ConflictingSignal(BaseModel):
     model_config = MODEL_CONFIG
 
     description: str = Field(min_length=1)
-    agents: list[Literal["fundamentals", "sentiment", "risk", "competition"]] = Field(min_length=2, max_length=4)
+    agents: list[Literal["fundamentals", "sentiment", "risk", "competition"]] = Field(
+        min_length=2, max_length=4
+    )
 
 
 class PanelOutputs(BaseModel):
