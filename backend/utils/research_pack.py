@@ -121,9 +121,7 @@ def get_price_movement(company_price_movement: PriceHistory) -> PriceMovement:
 
     cutoff_365d = latest_date - timedelta(days=365)
     year_prices = [
-        v
-        for k, v in valid_close_prices.items()
-        if parsed_dates[k] >= cutoff_365d
+        v for k, v in valid_close_prices.items() if parsed_dates[k] >= cutoff_365d
     ]
     year_high = max(year_prices) if year_prices else None
     year_low = min(year_prices) if year_prices else None

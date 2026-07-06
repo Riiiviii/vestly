@@ -33,7 +33,12 @@ async def fetch_quotes(tickers: list[str]) -> list[Quote]:
     async def fetch_one(symbol: str) -> Quote | None:
         try:
             data = cast(_FinnhubQuote, await asyncio.to_thread(_client.quote, symbol))
-            return {"ticker": symbol, "price": data["c"], "change": data["d"], "changePercent": data["dp"]}
+            return {
+                "ticker": symbol,
+                "price": data["c"],
+                "change": data["d"],
+                "changePercent": data["dp"],
+            }
         except Exception:
             logger.warning("Failed to fetch quote for %s", symbol)
             return None
