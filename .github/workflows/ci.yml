@@ -48,3 +48,6 @@ jobs:
 
       - name: Run tests
         run: uv run pytest
+
+      - name: Build backend Docker image
+        run: docker build --tag vestly-backend-ci:${{ github.sha }} .
